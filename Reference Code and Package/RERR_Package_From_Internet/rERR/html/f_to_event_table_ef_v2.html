@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data transformation: Event format -&gt; Event format required...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for f_to_event_table_ef_v2 {rERR}"><tr><td>f_to_event_table_ef_v2 {rERR}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Data transformation: Event format -&gt; Event format required for the model (internal use)</h2>
+
+<h3>Description</h3>
+
+<p>This function organize an input data set ef, same as f_to_event_table_ef_all but with start,stop and outcome from the formula
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+f_to_event_table_ef_v2(id, start, stop, outcome, data, times, doses, covars)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>name of variable containing the names of subjects</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>name of the variable containing the start time</p>
+</td></tr>
+<tr valign="top"><td><code>stop</code></td>
+<td>
+<p>name of the variable containing the stop time</p>
+</td></tr>
+<tr valign="top"><td><code>outcome</code></td>
+<td>
+<p>name of the variable containging the outcome</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>input data set</p>
+</td></tr>
+<tr valign="top"><td><code>times</code></td>
+<td>
+<p>name of the time variable</p>
+</td></tr>
+<tr valign="top"><td><code>doses</code></td>
+<td>
+<p>name of the dose variable</p>
+</td></tr>
+<tr valign="top"><td><code>covars</code></td>
+<td>
+<p>names of the covars required later in the model</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The data set with the event-row format, including the event of exit of the cohort
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+f_to_event_table_ef_v2(id='patientids',start='entry_age',stop='exit_age',
+                                       outcome='leukaemia',data,times='age',doses='ActMar_med',
+                                       covars=c('sex','country','birthcohort'))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rERR</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

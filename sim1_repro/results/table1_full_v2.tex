@@ -1,0 +1,41 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.6in,landscape]{geometry}
+\usepackage{booktabs,multirow,threeparttable,xcolor}
+\usepackage[labelformat=empty,justification=raggedright,singlelinecheck=false]{caption}
+\pagestyle{empty}
+\begin{document}
+\begin{table}[ht]\centering\small
+\begin{threeparttable}
+\caption*{\textbf{Table 1 (reproduction).} Simulation 1: relative bias, estimated SE and coverage of the naive and RRC estimators of $\beta$ (B = 2000 replicates per cell).}
+\begin{tabular}{lll r rr rr r r rr}
+\toprule
+ & & & & \multicolumn{2}{c}{Relative bias (\%)} & \multicolumn{2}{c}{Estimated SE} & 95\% CP & SE/SD & \multicolumn{2}{c}{Median rel.\ bias (\%)} \\
+\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-9}\cmidrule(lr){10-10}\cmidrule(l){11-12}
+Model & Error & Generation of $C$ & $B_{\mathrm{conv}}$ & Naive & RRC & Naive & RRC & RRC & RRC & Naive & RRC \\
+\midrule
+\multirow{6}{*}{Cox} & \multirow{3}{*}{Additive} & Independent & 2000 & $-$50.8 {\color{gray}($-$47.0)} & $-$1.5 {\color{gray}($-$3.3)} & 0.055 {\color{gray}(0.054)} & 0.108 {\color{gray}(0.093)} & 95.1 {\color{gray}(94.8)} & 1.00 & $-$51.0 & $-$1.5 \\
+ &  & AR(1) & 2000 & $-$49.7 {\color{gray}($-$52.4)} & 0.8 {\color{gray}($-$4.5)} & 0.056 {\color{gray}(0.056)} & 0.111 {\color{gray}(0.105)} & 94.6 {\color{gray}(94.3)} & 0.99 & $-$49.8 & 0.7 \\
+ &  & DEX & 2000 & $-$50.8 {\color{gray}($-$52.1)} & $-$1.4 {\color{gray}($-$4.8)} & 0.056 {\color{gray}(0.055)} & 0.112 {\color{gray}(0.105)} & 95.3 {\color{gray}(94.2)} & 1.00 & $-$50.6 & $-$1.0 \\
+\cmidrule(l){2-12}
+ & \multirow{3}{*}{Multiplicative} & Independent & 2000 & $-$44.9 {\color{gray}($-$48.2)} & 9.9 {\color{gray}($-$3.6)} & 0.065 {\color{gray}(0.059)} & 0.130 {\color{gray}(0.096)} & 90.3 {\color{gray}(94.5)} & 0.89 & $-$44.4 & 9.7 \\
+ &  & AR(1) & 2000 & $-$48.6 {\color{gray}($-$52.7)} & 2.8 {\color{gray}($-$4.9)} & 0.060 {\color{gray}(0.059)} & 0.121 {\color{gray}(0.111)} & 93.5 {\color{gray}(94.2)} & 0.97 & $-$48.2 & 2.8 \\
+ &  & DEX & 2000 & $-$49.0 {\color{gray}($-$52.7)} & 2.0 {\color{gray}($-$5.0)} & 0.060 {\color{gray}(0.061)} & 0.120 {\color{gray}(0.112)} & 95.0 {\color{gray}(94.2)} & 1.00 & $-$48.4 & 3.0 \\
+\midrule
+\multirow{6}{*}{ERR} & \multirow{3}{*}{Additive} & Independent & 1856 & $-$47.2 {\color{gray}($-$49.3)} & 5.4 {\color{gray}($-$4.8)} & 0.162 {\color{gray}(0.077)} & 0.322 {\color{gray}(0.106)} & 93.6 {\color{gray}(94.4)} & 1.15 & $-$51.4 & $-$2.4 \\
+ &  & AR(1) & 1923 & $-$45.1 {\color{gray}($-$53.4)} & 9.5 {\color{gray}($-$6.1)} & 0.167 {\color{gray}(0.086)} & 0.334 {\color{gray}(0.111)} & 93.3 {\color{gray}(94.2)} & 1.09 & $-$51.3 & $-$2.2 \\
+ &  & DEX & 1946 & $-$45.1 {\color{gray}($-$54.0)} & 9.9 {\color{gray}($-$7.0)} & 0.170 {\color{gray}(0.089)} & 0.341 {\color{gray}(0.110)} & 92.4 {\color{gray}(94.1)} & 1.05 & $-$52.0 & $-$4.1 \\
+\cmidrule(l){2-12}
+ & \multirow{3}{*}{Multiplicative} & Independent & 1998 & $-$57.7 {\color{gray}($-$50.1)} & $-$13.5 {\color{gray}($-$5.0)} & 0.089 {\color{gray}(0.083)} & 0.188 {\color{gray}(0.110)} & 84.3 {\color{gray}(94.2)} & 1.00 & $-$61.2 & $-$20.7 \\
+ &  & AR(1) & 2000 & $-$50.6 {\color{gray}($-$55.6)} & $-$0.2 {\color{gray}($-$6.9)} & 0.089 {\color{gray}(0.092)} & 0.184 {\color{gray}(0.114)} & 91.3 {\color{gray}(94.0)} & 0.95 & $-$54.0 & $-$7.4 \\
+ &  & DEX & 2000 & $-$50.2 {\color{gray}($-$56.0)} & 0.6 {\color{gray}($-$7.8)} & 0.081 {\color{gray}(0.091)} & 0.167 {\color{gray}(0.113)} & 91.2 {\color{gray}(94.0)} & 0.97 & $-$52.5 & $-$4.6 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Entries are our estimates with the paper's Table 1 values in {\color{gray}(gray)}. Rows with $C$ resampled from the Uminer data are not reproduced.
+\item $n_1 = 2400$, $T^* = 55$, $n_2 = 800$ validation subjects with 3000 pairs (at most 8 per subject); true $\beta = \log 1.5$ (Cox) and $0.423$ (ERR); cumulative incidence about 10\%.
+\item $B_{\mathrm{conv}}$: replicates in which all three fits (true, naive, RRC) converged; ERR fits ending on the parameter boundary are excluded.
+\item Relative bias $= 100(\bar{\hat\beta} - \beta)/\beta$; estimated SE is the mean model-based SE (naive) or sandwich SE (RRC); SE/SD is mean SE over the empirical SD of $\hat\beta$; 95\% CP is coverage of the Wald interval. Median relative bias uses the median of $\hat\beta$ in place of the mean.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{document}

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data transformation: Event format -&gt; Event format required...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for f_to_event_table_ef_all {rERR}"><tr><td>f_to_event_table_ef_all {rERR}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Data transformation: Event format -&gt; Event format required for the model</h2>
+
+<h3>Description</h3>
+
+<p>This function organize an input data set ef (event format), to the required ef data set for the model.
+It appends an index of person event 1,2..n,0 if a subject has n doses and being the 0-row the exit conditions: exit time, exit dose and the outcome.
+Also creates the cumulated dose.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+f_to_event_table_ef_all(formula, data, id_name, dose_name, time_name,
+  covars_names)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+<br />
+(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>input data set - event format data set</p>
+</td></tr>
+<tr valign="top"><td><code>id_name</code></td>
+<td>
+<p>name of variable containing the names of subjects</p>
+</td></tr>
+<tr valign="top"><td><code>dose_name</code></td>
+<td>
+<p>name of the dose variable</p>
+</td></tr>
+<tr valign="top"><td><code>time_name</code></td>
+<td>
+<p>name of the time variable</p>
+</td></tr>
+<tr valign="top"><td><code>covars_names</code></td>
+<td>
+<p>names of the covars required later in the model</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The data set with the event-row format, including the event of exit of the cohort as a row where the outcome is set
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ f_to_event_table_ef_all(formula,data,id_name='patientids',
+                                            dose_name='dose',time_name='time',
+                                            covars=c('sex','country','birthcohort'))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rERR</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

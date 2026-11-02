@@ -1,0 +1,68 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{booktabs,threeparttable,xcolor}
+\usepackage[labelformat=empty,justification=raggedright,singlelinecheck=false]{caption}
+\pagestyle{empty}
+\begin{document}
+\begin{table}[ht]\centering\footnotesize
+\begin{threeparttable}
+\caption*{\textbf{Table 2 (reproduction, pilot, $B = 48$ per cell).} Relative bias of exposure effect estimates of cumulative total exposure with model misspecification (bold cells with correct model specification).}
+\begin{tabular}{l rrrrrr}
+\toprule
+ & \multicolumn{6}{c}{Relative bias (\%)} \\
+\cmidrule(l){2-7}
+ & \multicolumn{2}{c}{Naive} & \multicolumn{4}{c}{RRC corrected} \\
+\cmidrule(lr){2-3}\cmidrule(l){4-7}
+$\rho(c, C)$ & Cox & ERR & Cox.A & Cox.M & ERR.A & ERR.M \\
+\midrule
+\multicolumn{7}{l}{\textit{A. Mean relative bias over converged fits; the paper's values in {\color{gray}(gray)}}} \\[2pt]
+\multicolumn{7}{l}{\textbf{Cox+Additive}\quad Cox true $\beta = 1$, additive independent error} \\
+\quad 0.3 & $-$29.6 {\color{gray}($-$33.5)} & -- {\color{gray}($-$28.3)} & \boldmath\textbf{394.3 {\color{gray}($-$4.4)}} & 201.7 {\color{gray}($-$5.7)} & -- {\color{gray}(5.9)} & -- {\color{gray}(6.6)} \\
+\quad 0.6 & $-$6.6 {\color{gray}($-$32.8)} & -- {\color{gray}($-$27.9)} & \boldmath\textbf{146.4 {\color{gray}($-$4.0)}} & 135.7 {\color{gray}($-$5.5)} & -- {\color{gray}(5.6)} & -- {\color{gray}(6.1)} \\
+\quad 0.9 & $-$0.2 {\color{gray}($-$31.4)} & -- {\color{gray}($-$27.2)} & \boldmath\textbf{22.8 {\color{gray}($-$3.8)}} & 43.4 {\color{gray}($-$5.4)} & -- {\color{gray}(5.3)} & -- {\color{gray}(5.7)} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Cox+Multiplicative}\quad Cox true $\beta = 1$, multiplicative independent error} \\
+\quad 0.3 & $-$94.2 {\color{gray}($-$34.7)} & 272.5 {\color{gray}($-$29.0)} & 390.6 {\color{gray}($-$6.1)} & \boldmath\textbf{414.0 {\color{gray}($-$5.7)}} & -- {\color{gray}(4.8)} & -- {\color{gray}(4.3)} \\
+\quad 0.6 & $-$30.0 {\color{gray}($-$33.9)} & -- {\color{gray}($-$28.4)} & 179.3 {\color{gray}($-$5.6)} & \boldmath\textbf{184.1 {\color{gray}($-$5.3)}} & -- {\color{gray}(4.5)} & -- {\color{gray}(4.1)} \\
+\quad 0.9 & $-$3.6 {\color{gray}($-$32.6)} & -- {\color{gray}($-$27.8)} & 26.5 {\color{gray}($-$5.4)} & \boldmath\textbf{30.4 {\color{gray}($-$5.0)}} & -- {\color{gray}(4.0)} & -- {\color{gray}(3.7)} \\
+\midrule
+\multicolumn{7}{l}{\textbf{ERR+Additive}\quad ERR true $\beta = 1.109$, additive independent error} \\
+\quad 0.3 & $-$79.4 {\color{gray}($-$42.1)} & $-$63.1 {\color{gray}($-$35.8)} & 70.8 {\color{gray}($-$14.9)} & $-$13.6 {\color{gray}($-$15.2)} & \boldmath\textbf{213.4 {\color{gray}($-$5.5)}} & 487.6 {\color{gray}($-$6.6)} \\
+\quad 0.6 & $-$70.9 {\color{gray}($-$40.6)} & $-$33.3 {\color{gray}($-$33.0)} & $-$23.2 {\color{gray}($-$14.5)} & $-$34.3 {\color{gray}($-$14.9)} & \boldmath\textbf{858.5 {\color{gray}($-$5.1)}} & 717.6 {\color{gray}($-$6.4)} \\
+\quad 0.9 & $-$71.2 {\color{gray}($-$38.9)} & $-$22.0 {\color{gray}($-$31.2)} & $-$64.6 {\color{gray}($-$14.2)} & $-$60.1 {\color{gray}($-$14.7)} & \boldmath\textbf{193.1 {\color{gray}($-$4.6)}} & 446.9 {\color{gray}($-$6.2)} \\
+\midrule
+\multicolumn{7}{l}{\textbf{ERR+Multiplicative}\quad ERR true $\beta = 1.109$, multiplicative independent error} \\
+\quad 0.3 & $-$97.9 {\color{gray}($-$43.0)} & $-$94.9 {\color{gray}($-$36.2)} & 72.4 {\color{gray}($-$16.8)} & 64.8 {\color{gray}($-$16.0)} & 236.8 {\color{gray}($-$6.7)} & \boldmath\textbf{338.5 {\color{gray}($-$6.3)}} \\
+\quad 0.6 & $-$80.9 {\color{gray}($-$41.7)} & 26.7 {\color{gray}($-$33.4)} & $-$22.7 {\color{gray}($-$15.8)} & $-$26.9 {\color{gray}($-$15.6)} & -- {\color{gray}($-$5.8)} & \boldmath\textbf{-- {\color{gray}($-$6.1)}} \\
+\quad 0.9 & $-$76.7 {\color{gray}($-$40.4)} & 34.9 {\color{gray}($-$31.9)} & $-$69.6 {\color{gray}($-$14.7)} & $-$69.3 {\color{gray}($-$15.2)} & 176.7 {\color{gray}($-$4.8)} & \boldmath\textbf{181.2 {\color{gray}($-$5.7)}} \\
+\midrule[\heavyrulewidth]
+\multicolumn{7}{l}{\textit{B. Median relative bias over all fits; [number of fits not converged or stopped at the cap $\beta = 50$]}} \\[2pt]
+\multicolumn{7}{l}{\textbf{Cox+Additive}\quad Cox true $\beta = 1$, additive independent error} \\
+\quad 0.3 & $-$29.5 & $-$29.5 [48] & \boldmath\textbf{404.4} & 207.0 & 4408.6 [48] & 4408.6 [48] \\
+\quad 0.6 & $-$6.3 & 9.2 [48] & \boldmath\textbf{144.8} & 132.7 & 4408.6 [48] & 4408.6 [48] \\
+\quad 0.9 & 0.2 & 38.4 [48] & \boldmath\textbf{22.3} & 40.7 & 1473.7 [48] & 4408.6 [48] \\
+\midrule
+\multicolumn{7}{l}{\textbf{Cox+Multiplicative}\quad Cox true $\beta = 1$, multiplicative independent error} \\
+\quad 0.3 & $-$93.9 & 4408.6 [47] & 405.3 & \boldmath\textbf{411.2} & 4408.6 [48] & 4408.6 [48] \\
+\quad 0.6 & $-$31.1 & 4408.6 [48] & 173.7 & \boldmath\textbf{181.5} & 4408.6 [48] & 4408.6 [48] \\
+\quad 0.9 & $-$3.0 & 4408.6 [48] & 26.6 & \boldmath\textbf{30.5} & 4408.6 [48] & 4408.6 [48] \\
+\midrule
+\multicolumn{7}{l}{\textbf{ERR+Additive}\quad ERR true $\beta = 1.109$, additive independent error} \\
+\quad 0.3 & $-$78.9 & $-$58.0 [8] & 67.1 & $-$13.3 & \boldmath\textbf{4408.6 [46]} & 4408.6 [38] \\
+\quad 0.6 & $-$71.8 & $-$12.4 [18] & $-$25.9 & $-$35.5 & \boldmath\textbf{4408.6 [46]} & 4408.6 [41] \\
+\quad 0.9 & $-$72.4 & $-$15.6 [17] & $-$66.4 & $-$62.0 & \boldmath\textbf{123.4 [17]} & 1493.9 [20] \\
+\midrule
+\multicolumn{7}{l}{\textbf{ERR+Multiplicative}\quad ERR true $\beta = 1.109$, multiplicative independent error} \\
+\quad 0.3 & $-$97.7 & $-$94.9 & 72.9 & 68.8 & 4408.6 [44] & \boldmath\textbf{4408.6 [45]} \\
+\quad 0.6 & $-$81.0 & $-$19.3 [2] & $-$23.2 & $-$26.5 & 4408.6 [48] & \boldmath\textbf{4408.6 [48]} \\
+\quad 0.9 & $-$77.4 & $-$14.3 [3] & $-$70.7 & $-$70.7 & 180.4 [19] & \boldmath\textbf{114.6 [16]} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Cox model $\lambda(t) = \lambda_0(t)\exp(\beta x(t))$ with true $\beta_{\mathrm{Cox}} = 1$; ERR model $\lambda(t) = \lambda_0(t)(1 + \beta x(t))$ with true $\beta_{\mathrm{ERR}} = 1.109$. Relative bias of each fit is against the true $\beta$ of the model it fits: $100(\hat\beta - \beta)/\beta$.
+\item $n_1 = 2000$, $n_2 = 500$ (at most 8 pairs each), $T^* = 60$, cumulative incidence about 10\%. True annual exposure $c$ has compound symmetry ($\rho = 0.5$) across years; $E(c) = 0.05$.
+\item -- : no fit converged. A median of 4408.6 means at least half of the fits stopped at the cap $\beta = 50$ (ERR fits are not identified under the current exposure level).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{document}

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulated cohort of subjects exposed to ct scans</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cohort_wf {rERR}"><tr><td>cohort_wf {rERR}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulated cohort of subjects exposed to ct scans</h2>
+
+<h3>Description</h3>
+
+<p>List of subjects that recived at least 1 scan
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cohort_wf
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 1000 rows and 80 variables:
+</p>
+
+<dl>
+<dt>id</dt><dd><p>subject identificator, integer</p>
+</dd>
+<dt>sex</dt><dd><p>sex of the subject, 1-male / 2-female</p>
+</dd>
+<dt>YearInit</dt><dd><p>Year of entry of the subject, integer</p>
+</dd>
+<dt>AgeAtEntry</dt><dd><p>age of entry at the cohort, numeric</p>
+</dd>
+<dt>age_at_event</dt><dd><p>age at exit of the cohort, numeric</p>
+</dd>
+<dt>outcome</dt><dd><p>disease or not, 0-no disease / 1-disease</p>
+</dd>
+<dt>end_status</dt><dd><p>status at exit of the cohort, 0-disease / 1-death / 2-healthy</p>
+</dd>
+<dt>ses</dt><dd><p>socio economic status,integer</p>
+</dd>
+<dt>number_of_ct</dt><dd><p>number of ct's recived in all follow-up, integer</p>
+</dd>
+<dt>ctage1</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage2</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage3</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage4</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage5</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage6</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage7</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage8</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage9</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage10</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage11</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage12</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage13</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage14</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage15</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage16</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage17</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage18</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage19</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage20</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage21</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage22</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage23</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage24</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage25</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage26</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage27</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage28</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage29</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage30</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage31</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage32</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage33</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage34</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>ctage35</dt><dd><p>middle age at i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose1</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose2</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose3</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose4</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose5</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose6</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose7</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose8</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose9</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose10</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose11</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose12</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose13</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose14</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose15</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose16</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose17</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose18</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose19</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose20</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose21</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose22</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose23</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose24</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose25</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose26</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose27</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose28</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose29</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose30</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose31</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose32</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose33</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose34</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>dose35</dt><dd><p>grouped doses recived the i-th year of being in the cohort, numeric</p>
+</dd>
+<dt>country</dt><dd><p>country, character</p>
+</dd>
+</dl>
+
+<hr /><div style="text-align: center;">[Package <em>rERR</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

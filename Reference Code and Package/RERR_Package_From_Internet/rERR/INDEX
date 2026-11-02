@@ -1,0 +1,34 @@
+cohort_ef               Simulated cohort of subjects exposed to ct
+                        scans
+cohort_wf               Simulated cohort of subjects exposed to ct
+                        scans
+confint.rERR            Confidence intervals
+f_exclusion             Exclusion period related with the latency - lag
+                        period
+f_fit_linERR            fit Excess Relative Risk Model (internal use)
+f_fit_linERR_all        fit Excess Relative Risk Model
+f_fit_linERR_ef         fit Excess Relative Risk Model
+f_fit_linERR_wf         fit Excess Relative Risk Model
+f_lrt                   likelihood ratio test
+f_parse_formula         Parse formula (internal use)
+f_plot_linERR           plot the likelihood
+f_plot_linERR_ef        plot likelihood function from ef
+f_plot_linERR_wf        plot likelihood function from wf
+f_risksets              Rsiksets
+f_to_event_table_ef_all
+                        Data transformation: Event format -> Event
+                        format required for the model
+f_to_event_table_ef_v2
+                        Data transformation: Event format -> Event
+                        format required for the model (internal use)
+f_to_event_table_wf_all
+                        Data transformation: Wide format -> Event
+                        format required for the model
+f_to_event_table_wf_v2
+                        ata transformation: Wide format -> Event format
+                        required for the model (internal use)
+f_to_model_data         Data transformation: keep model variables and
+                        expand categorical variables (internal use)
+print.ci.rERR           Print ci rERR
+print.summary.rERR      Print summary rERR
+summary.rERR            summary of a ERR fit

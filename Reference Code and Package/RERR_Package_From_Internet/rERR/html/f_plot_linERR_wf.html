@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: plot likelihood function from wf</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for f_plot_linERR_wf {rERR}"><tr><td>f_plot_linERR_wf {rERR}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>plot likelihood function from wf</h2>
+
+<h3>Description</h3>
+
+<p>plot the partial log likelihood function in the case of one dimension in the linear part
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+f_plot_linERR_wf(object, formula, data, id_name, doses, times, covars, lag,
+  exclusion_done = F)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an rERR class object</p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+<br />
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>data set returned from f_to_model_data</p>
+</td></tr>
+<tr valign="top"><td><code>id_name</code></td>
+<td>
+<p>name of variable containing the names of subjects</p>
+</td></tr>
+<tr valign="top"><td><code>doses</code></td>
+<td>
+<p>sub data set of grouped doses</p>
+</td></tr>
+<tr valign="top"><td><code>times</code></td>
+<td>
+<p>sub data set of times relatives to doses</p>
+</td></tr>
+<tr valign="top"><td><code>covars</code></td>
+<td>
+<p>sub data set of the covars that will be involved in the model (adjustments and stratification)</p>
+</td></tr>
+<tr valign="top"><td><code>lag</code></td>
+<td>
+<p>latency period</p>
+</td></tr>
+<tr valign="top"><td><code>exclusion_done</code></td>
+<td>
+<p>a logical indicating wheather the exclusion is already done or not</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>rERR object with the estimation
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# set the formulas for the models
+formula1  &lt;- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
+
+# fit the model
+fit1 &lt;- f_fit_linERR_wf(formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],
+                        times=cohort_wf[,10:44],covars=cohort_wf[,c("sex","country")],
+                        lag=2,exclusion_done = FALSE)
+                        
+# plot the partial loglikelihood function
+f_plot_linERR_wf(fit1,formula1,data=cohort_wf,id_name="id",doses=cohort_wf[,45:79],
+                 times=cohort_wf[,10:44],covars=cohort_wf[,c("sex","country")],
+                 lag=2,exclusion_done = FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rERR</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

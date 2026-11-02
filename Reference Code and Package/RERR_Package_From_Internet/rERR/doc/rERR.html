@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Francesc Badia Roca" />
+
+<meta name="date" content="2018-06-05" />
+
+<title></title>
+
+
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<div id="rerr-package" class="section level1">
+<h1>rERR package</h1>
+<p>fit Excess Relative Risk model</p>
+<ul>
+<li><a href="https://github.com/fbr600/rERR#introduction">Introduction</a></li>
+<li><a href="https://github.com/fbr600/rERR#installing">Installing</a></li>
+<li><a href="https://github.com/fbr600/rERR#model-specification">Model Specification</a></li>
+<li><a href="https://github.com/fbr600/rERR#latency-period-lag-and-exclusion">Latency period (lag) and exclusion</a></li>
+<li><a href="https://github.com/fbr600/rERR#examples">Examples</a></li>
+<li><a href="https://github.com/fbr600/rERR#using-an-event-format-data-set-as-input-cohort">Using an event format data set as input cohort</a></li>
+<li><a href="https://github.com/fbr600/rERR#using-a-wide-format-data-set-as-input-cohort">Using a wide format data set as input cohort</a></li>
+<li><a href="https://github.com/fbr600/rERR#save-time-in-multi-analysis-of-the-same-data-set">Save time in multi analysis of the same data set</a></li>
+<li><a href="https://github.com/fbr600/rERR#using-categorical-exposure">Using Categorical Exposure</a></li>
+<li><a href="https://github.com/fbr600/rERR/blob/master/README.md#plot-the-partial-log-likelihood-function">Plot the partial log likelihood function</a></li>
+<li><a href="https://github.com/fbr600/rERR/blob/master/README.md#references">Refereces</a></li>
+</ul>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>In radiation epidemiology, ERR models are used to analyze dose-response relationships for event rate data.</p>
+<p>Usual approaches to the analysis of cohort and case control data often follow from risk-set sampling designs, where at each failure time a new risk set is defined, including the index case and all the controls that were at risk at that time. That kind of sampling designs are usually related to the Cox proportional hazards model,</p>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAAATBAMAAAAUtEBIAAAAMFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv3aB7AAAAD3RSTlMAZpnviVTNq3bdELsiRDIUPd2MAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACN0lEQVQ4EaVUO2gUURQ9T+bnm9lxggRRRAaxjNrYmWIDSSMqEyEQU60iEqxWGwubSZFCYrGNTapBWJRIZLAVZAsV/CwsIloYZA1BxCq1lfe+N5OZ2RXJrnfg3XPOnXvmzZ0PsO9oL/7zVLkQ/7X+raoGVcosNnoV8VnBGDq4VAgF8uoFZvSqSomJxK1qrwvK8BjSQiiQXUCFnP6AALF9Gh95z0+vN1UeMD5xMrshqqtecfZcBHwq+ZgTIWRaEhQ0YcHp4RTwI6EMDBhHaHgt6Ppb1WE1KU0pqJclzGD4vrZwkI03ULvF2Zi9N3tRn69grYMWN6m6Gpq4fy0AiXvh93EbmNvjGbiAFTYEPie9fMcy4UNt3kicwL+8qus7PyPIh254NfEapGQh4DeBKznN88p8pIzl8s1ObmzEfChjZ3ISzssNgOtrvxJYDTe0Uj8F3qyb4BCP12j9onC2yNV5GRH+ekYLKldn3KaK7Xq63kw7OBS6ob1r0h4ffI+VvAWzTk+IsH2X4g6B93hkJpQrsVkwgkvEDojjWgsnOrBS3jEbo6bVAH5DG2tO6w0aw6jhqRnzVGVf9wYQxMqjkL9HdeXzxdHlAPzwPuAdcxnApf3xw7NfUDwHvF1ILo0Y6j1uwZ/phtgBzABHyGGu7DKNJ2W6P6y/vCm0zfMJDvcguos80LTcvb3A0liRfdKSjFX/8Cc9li29KbrPTNBVyOhr4b9XWVcWm4C+6eHf5riXGPjRx+P65H1/AIgejCKJa3VyAAAAAElFTkSuQmCC" />
+
+</div>
+<p>where <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAAKBAMAAAAds/7kAAAALVBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAOrOgAAAADnRSTlMAIs3dEFR2MmZEiZnvu7rBvHIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAACcSURBVBgZY2AQMmFlwA7gMokVCQy+WNUAZVhug2U4GVhzsCph4GRg2AqSYSlgYODBqgQkYwKSEWQQwaEEKMNiENXAwL5CcgNISRVQdTUDA/sGMAXigmRYb7ALMLiynnUAKemZwMAQ48DAegRMgbggGe5dQGEwACphgbEhIlAus/uFArAA57p0BlYHiByUhHJ5GXYghD0RTBALiQsAgmccj6ggapUAAAAASUVORK5CYII=" /> is the vector of explanatory variables,</p>
+<p>This model is available in most standard statistical packages but limited to log-linear model (except Epicure,(Preston et al., 1993)).</p>
+<p>One model of particular interest, especially in radiation environmental and occupational epidemiology is the linear ERR model,</p>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALIAAAASBAMAAAANuJm1AAAAMFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv3aB7AAAAD3RSTlMAZpnviVTNq3bdELsiRDIUPd2MAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAChklEQVQ4EYWUPWgUQRiG371k987dzXqiQey2sFA4NIWdIntFanOKkASFEyysJGphwOZErhAtrrEJioco/kDw/KuuiUQEf4KHRCwUXTWonVeLhd/PLruzRTLFzHzvvM+3M9/OLpC0L+lEx6oZbhAVYHJnvB+Z8AszXD8qwuTO+HKBrcSG8MuIikERpnXmrb37poDVnNveEsLt5QSs7tbITkR2pO3inMKXWqnCo/DOHM1qOXkWdcDIjBldTjcnDpXGTjcVHolzKYS3Lp+oAp1MDmKcASYzgWZmZnWooRQl8LLGaT8J95oXznT9ZqpQeRDQKQ5nAs3MzOpQw6YBFN5uAMQ7TS90egEd/uWCltG6e4VMHw1jIbM4xBAcqoPh241HdM5tQPsD3HaD+c2hF5aHNu3y6reWmD/DjoCfNC+fp3aWRTOzOlgHfgAE+wvuP9yPS1Fp8ApvcIt5p8d75swYYydf8qCpmSWUTjJf6D/p90OK1cE1A6gIBDtRMIGnGO15zx7gZGOKeV/qzC43ZidzFkXrVUMddofdu8Cv5d1SJaRde6F/7qD7l3XirR2nqvIS3uI1S24VHj2T32C5T+0xi0Y1EgfrwA0w/BXO7OIQD+Nj2OkP4Sov97mDoL4SYo3OVuUTFm7dEckCvc+JQyXeYAfL+PPcncA8rmMPDuCe8PoN1nDH3t/F1gGslWnasvmlrN2clzyaOXGIEnBJaqi0f4/j/fQAxxsDfD9KCXqyTF3ydbuUWSTz605dSeY0pLESUZf/NSRrGV9Sxe5iRWajsQpm70uoDpmOfFqiMYFFSbqMdyORFgEuRf4vKKHRqUOk0jgPCZw3ZX9RFH7erbxtw3kBJn8L/wGYj5TLABRNUwAAAABJRU5ErkJggg==" />
+
+</div>
+<p>where z is the vector of covariates.</p>
+<p>Estimation of a dose-response trend under a linear relative rate model implies that for every 1-unit increase in the exposure metric, the rate of disease increases (or decreases) in an additive fashion.</p>
+<p>The modification of the effect of exposure in linear relative rate models by a study covariate z can be assessed by including a log- linear subterm for the linear exposure, implying a model of the form</p>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATkAAAATBAMAAAAZj2cmAAAAMFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv3aB7AAAAD3RSTlMAZpnviVTNq3bdELsiRDIUPd2MAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEBklEQVRIDaVWS4gcVRQ91XZ117yuqlSQIagxVCRZCIkO6ELwQwcyGz+hR9OYDCgdiRJctW4UAtIjBpSozMaNYFKoQ8KEOE2ybJFaJJGYDGkkJguDdmITo25m4UqCeO97r+pVVZswn9uv65577qcv71cNLFvm9tw1VDQ7d/WvyflLPjvIm2x1yv0c+Y2xGDp4wRAGeQOD74hGgyyARiJuPUFKn8mbZFlRLc+dNSbD+9E1hEGjhYwvRaNB1E+mpWoaqYAzKBCwbmzHjzx7J15rS13obtNDemrJn8kl/HvG/H+YTdARnwI0YD36eAO4nEmz14cQ3QwhoY0KnD62ADcj0kChuwZa7iyU/3ya7NVx+WFl2Zrk8hlxNoCCaGc8kSFpDuQAKm2it2Vc09iB0WW6hjHubh7em6zLOw/ufF4lSejFmOUk6Td7oBQDe1VYsjyyvPm5KzfBQcAzhiNEJbiK9dG+AFQ5FX+At4DJ1NbgWcxwV8CVqJ/MnYj4I6exHDmBv+uQ8g9vNXTWGOl8d6q8dpOixeAguBOGI1Ru8BCf1cK9kdsyLgt+G3jREArNTDVkd+LAG3HSXbnDH9mdMz4O57t5gP2H/4yg5BypfHeqvHaT+gLgIFj0oxmxQ9CotGphpet3KeZztTOsY4cp6momEuLQlGgQ8fMjipX6rIkgOEdWteYqrt2NtfMv0oXuZHntBoZ/B6AgMflAgPJUHc4rDRxvBvDaPNaFtbC6ZFPjH1/vyJxrsOu09QlX3yF5m8AFfGlHpHNy0lgEp8kqWRsVF66PtfNl0vnuuPwtc7H7EwAFnY8WYnGElnm7O+t2RQi/xaPS5bnj7uCpigHTsjtl03M/rerKhW+StLuDvdO9XkgMl2/JUypvGl5QCtqP31Cr4zn0pqPK5Di4Bxqu3He808SAckkCuQWuKkM+xT8ZY/mQ54w7yM8dlX9P3j2KL3U4yL2N97EQ4xS+f2ywEFGSWllY9x0IwKfiIn4gFiJAjWaKT0W1R3KKjtMSBLtWISOngss322IpqTXW51PhLeH1+V8h/rXjUv0SEPGRoKHvu1n4OxZDDAE7wAZiJ+mbylM4nuKVAb4sXlIpVam4vN013a2L+EZxJ/zbwVeodsbi0uCeWHT0jaLfFdswZz8Z4d4+rMU9NHX52/hGk6nVSCnG8Oi7MlN1x+V9tbKS/YOeFPThqzMNb+snsH96EP7WZnobq9/UbzJB3Uli9E2m4lb6lNtfJenu2FCnQtIf0DMTJDl+nNBvMkmUFG1HWJSoPFDEmp9hWkHdhbL8cHfCPv0tozAxjd4F0NAi6hKcBNQankkca9VfFwoUtshmaReD6CDWs/+gUPj32SkUXbXpDZaROhrk8N9Z/AccRfkqd7NdywAAAABJRU5ErkJggg==" />
+
+</div>
+<p>where <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAAKBAMAAAAds/7kAAAALVBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAOrOgAAAADnRSTlMAIs3dEFR2MmZEiZnvu7rBvHIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAACcSURBVBgZY2AQMmFlwA7gMokVCQy+WNUAZVhug2U4GVhzsCph4GRg2AqSYSlgYODBqgQkYwKSEWQQwaEEKMNiENXAwL5CcgNISRVQdTUDA/sGMAXigmRYb7ALMLiynnUAKemZwMAQ48DAegRMgbggGe5dQGEwACphgbEhIlAus/uFArAA57p0BlYHiByUhHJ5GXYghD0RTBALiQsAgmccj6ggapUAAAAASUVORK5CYII=" /> are the covariates.</p>
+<p>This package is an R impelementation of models that are rarely implemented outside Epicure: the Linear Excess Relative Risk model allowing time dependent covariates, time dependent adjustments, lagged exposures and stratification.</p>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+<div id="installing" class="section level2">
+<h2>Installing</h2>
+<ul>
+<li>With compilation of source code: it requires Rtools installed in your computer</li>
+</ul>
+<p>The package can be installed directly in RStudio from github:</p>
+<p><code>install.packages(&quot;devtools&quot;)   devtools::install_github(&quot;fbr600/rERR&quot;)</code> * Without compilation:</p>
+<p>You can download the .zip file <a href="https://github.com/fbr600/rERR_binnary/raw/master/rERR.zip">here</a>.</p>
+<p>Change the path to the download folder in the following code and run it in RStudio:</p>
+<p><code>install.packages(&quot;path_to_downloads_folder/rERR.zip&quot;, repos = NULL, type = &quot;win.binary&quot;)   install.packages(&quot;devtools&quot;)   devtools::install_deps(paste0(.libPaths(),&quot;/rERR&quot;))</code> <a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+<div id="model-specification" class="section level2">
+<h2>Model Specification</h2>
+<ul>
+<li>The ERR model is specified using a formula object in R</li>
+</ul>
+<p><code>formula &lt;- Surv(entry_time,exit_time,outcome) ~ lin(dose_cum)</code> This is the formula for the model:</p>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKIAAAASBAMAAAAqFhhdAAAAMFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv3aB7AAAAD3RSTlMAZpnviVTNq3bdELsiRDIUPd2MAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACWklEQVQ4EY1UPYjUUBD+krtk1yTGCB5il8JCYdErLEVyhbW3J8LdobCChZVELTywWZEtDpttbERRRPAHxPhXbXOijcjhIisWigYVtXNrsXB+EpK3gueDnXnzzffNzsubBCjWR/VRGf+XL0Q1bqUPEoVf1LIbbktRjVjpGwXazGtp4LsRTQalqIaz3tq7bx4YEepsjeFltTRGuzVyCpAZ5bqQiggXuyXCXvRuSrsW/ZYxBxgVscQsoGxGGAptPtUREaZyBQpLemv1eAT0gTDHaeCgkTcrKkMJdiIi4LkhIL132Y+XbgQdKo0wBRYMgllRGUrYNASLgO0al3YBbseP3SzkZm9fIvhdmRI/UVEYkggPzYFFt9oP6VzbgN5beL0267fEftwYO9TdBzgJ8I0EjXO0zrDSrKgMxoEvdJMpgiveb9zN7cQevsQr3GS9m3GPXDFC2NGKrNAlFc8PHg8GMQHK4GcjhyWRm4SzeILpzH96Dyfa86wP5DkyK4JF9l+nVobT54q76CpTvF5rxtSlHwdnD3i/GCe9teNkxA/Zi+DTf/DNNAa0HnHeOHXBYBy4BhZ9grt8f4wH+VHsDMbwVC/z2IcTybWZ03NY5TqPBUMhbqhPo/PzmTeLFVzFHuzHHZk+fWdasNYXqUVzwr9eXxG9ViwYgoR89BaavR8zeLM4xLH2EJ+PUIFM0mRGNI68zLdQIDJFxTIk30zI8Ks7sSq9jXXJTecTFAkDscqQ7dT7NfK27A1T6b2EjwxUXyODKIEyZGvPsPMSCeqmpi8+nt16esP931/cLv4AxlWIOCgzxT0AAAAASUVORK5CYII=" />
+
+</div>
+<p>where f(dose) is the cumulative dose of each subject up to the relative fail time.</p>
+<ul>
+<li>Also the covariates effect can be included in the model: <code>formula &lt;- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum)</code> This is the formula of the model:</li>
+</ul>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATEAAAASBAMAAADBBPR3AAAAMFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv3aB7AAAAD3RSTlMAZpnviVTNq3bdELsiRDIUPd2MAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAD3UlEQVRIDaVWTYgcVRD+etyeme3p7rSKBDWBFhK8bHBBD0KMdGIWFSH0iIsmoKyQgCweRi96HMUNSozsxYtg6PyoIUF2WDSXEenDovizOIckXkJsTUgIguxBCIQQUvXq9ds3PXvIJjWPV1999aq6+v30G0DLxRKIjobNNSyvMKQFDVeCSt6SXtVBsYoFOQC1UvykRKKXhs01LD81pAUNp0E1b9UPjD6JYqywRiWkWVQIPDfrBtuI9M48rrRVDkNySwT5rVDKG3YsexSu4f0MoAbniaco8VkrxL0/htezCIbuYCnAYdQShLOkgeHK2O3PQ/wMtJxFsEtbqabaD5RONDciSMhqPm0oBqdVA+odMiYs1z7sBHoWIdBNqSIvw/mMK9v9/He7c3EIJDfFiH81mPK68zKso9NkY5Eg4PwV1HI2ni0ZpVsANTifvEkjdTQ7wgLvAFNqjN2FXTVXwSzPnczZKfBPpi/shnvmiCe/ABVLeSuV/YeGqWwLMM7D/Ek1uOzGUlDzPm/FezN/pmT5XPDOeHmV0CjIVUVfH3zbVPYC+CeVBXnzR6oS5BfAYZy3UlmEq+xR8iXwEwOHHmiJG4NafaYV13thj8Z8IXvY+eYQjfrTGglvrk2bAcFioVilh/cZuxstX4IMAOetVPbI+8SJXP4/wr+0A6YejTDWTtB8PcXJ6QhBh9uGuBU3Vlwq+tO/uyrgAtwEuEK48R7JuwR+wzGeyyHxBsZU0EHN2SSUAeC8w5XRzL9SBoaTwKvAL9lC7h3BFmzz5/2eFyOc4Vbv8ZxxBgQSETGtKiszYH87NfiOAe8JU1mj39/eX6RYej9+abWivIhU2X5cQivBS+jvy+pTD9FOV5X5ap9xFq+Qh0Zq2e3V9G6IZ309z5WqjjQLPYKEKttIai/jWpdL9G/iQyzkWMTPTxYLGfGymnAefitSO/V3/EosvAitVE4AvWifX9Rfgceu9cvoCTgKfF/mGR/wCQhWcODUX/BuuXkt+QPIePtT09+zeYQ7l2NcpgWI1EtNleGsn8FJ21wHpvlyJ2V8R6m2dRA3ZPzV8CfDm9FxNLrjea24L/e6/Mmgpu+ACXzlbs/w4ADO8mvEDn9p/5lm6m5kAuGL17sqUirbdG7O5LlGqJbj4zc+SIOth+Ge24xw67T6zLbMIH070SmTIzhyO5mR6wPWrSeVRVb8R4SDxCI0PK1vJ2XWhHQzLCs0Vghxr73Oy2ly7vwB9yI7fmAdi2H3ewBqWrxEgW+BVIElzd+r0nlNGtcg4DH1qBMWI9BP7H9BqPzD646Mv0uiknc0S1BUuSZfKLgN7aLfrGvbzR4AAAAASUVORK5CYII=" />
+
+</div>
+<p>where <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAAKBAMAAAAds/7kAAAALVBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAOrOgAAAADnRSTlMAIs3dEFR2MmZEiZnvu7rBvHIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAACcSURBVBgZY2AQMmFlwA7gMokVCQy+WNUAZVhug2U4GVhzsCph4GRg2AqSYSlgYODBqgQkYwKSEWQQwaEEKMNiENXAwL5CcgNISRVQdTUDA/sGMAXigmRYb7ALMLiynnUAKemZwMAQ48DAegRMgbggGe5dQGEwACphgbEhIlAus/uFArAA57p0BlYHiByUhHJ5GXYghD0RTBALiQsAgmccj6ggapUAAAAASUVORK5CYII=" /> are the different countries.</p>
+<ul>
+<li>Stratification in the risksets is done by using the <code>strata()</code> function: <code>formula &lt;- Surv(entry_time,exit_time,outcome) ~ loglin(country) + lin(dose_cum) + strata(sex)</code> Is the same model as before, but in the risksets only the subjects of the same sex as the case are taken as in-risk-subjects.</li>
+</ul>
+<p><strong>Observation</strong> The data transformation required by the model computes the cumulative dose within the subject level over time, <em>dose_cum</em>, so this is a time-dependent variable, that is the cumulative dose recieved by each subject at every time.</p>
+<p>This variable always can be used as a variable, or can be used to recompute new variables such as other polynomic terms, cateogrizations of dose…</p>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+<div id="latency-period-lag-and-exclusion" class="section level2">
+<h2>Latency period (lag) and exclusion</h2>
+<p>The latency period is the estimated time after a certain exposure in which the dose-response is not possible.</p>
+<p>Analyzing the dose-response effect on a certain type of exposure, such as ionasing radiation, we want to exclude subjects that have a failure or disease before that period because of misleading on causation.</p>
+<div id="risk-model" class="section level5">
+<h5>Risk Model</h5>
+<div class="figure">
+<img src="data:image/png;base64,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" />
+
+</div>
+<p>So, imposing a latency period implies two actions: * Remove subjects that have a follow-up shorter than lag period time * Set the entry time to the cohort as 1st Exposure Time + lag , which is the moment in which a subject start being at risk</p>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<p>Two different formats of data sets are allowed: * Event format data set (ef) - where each row represents an exposure event. * Wide format data set (wf) - where each row contain all the follow-up information of a subject, icluding times and doses of exposures</p>
+<div id="using-an-event-format-data-set-as-input-cohort" class="section level3">
+<h3>Using an event format data set as input cohort</h3>
+<div id="load-library" class="section level5">
+<h5>load library</h5>
+<pre><code>&gt; library(rERR)</code></pre>
+</div>
+<div id="look-at-the-data-set" class="section level5">
+<h5>look at the data set</h5>
+<pre><code>&gt; head(cohort_ef,row.names=F)
+ id sex entry_age exit_age outcome  age     dose country
+ 10   2      9.88 12.53114       0 7.88 15.80825      Be
+ 14   1     11.09 12.35592       0 9.09 13.96742      UK
+ 14   1     11.09 12.35592       0 9.17 13.81423      UK
+ 15   1      9.55 12.33402       0 7.55  9.25016      Fr
+ 16   1      8.48 12.29843       0 6.49 18.00776      Sp
+ 16   1      8.48 12.29843       0 9.16 11.35068      Sp
+ ```
+
+##### set the formulas for two models
+ ```
+&gt; formula1  &lt;- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+&gt; formula2  &lt;- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)</code></pre>
+</div>
+<div id="fit-the-models" class="section level5">
+<h5>fit the models</h5>
+<pre><code>&gt; fit1 &lt;- f_fit_linERR_ef(formula1,data=cohort_ef,id_name=&quot;id&quot;,dose_name=&quot;dose&quot;,time_name=&quot;age&quot;,covars_names=c(&quot;sex&quot;),lag=2,exclusion_done=T)
+&gt; fit2 &lt;- f_fit_linERR_ef(formula2,data=cohort_ef,id_name=&quot;id&quot;,dose_name=&quot;dose&quot;,time_name=&quot;age&quot;,covars_names=c(&quot;sex&quot;,&quot;country&quot;),lag=2,exclusion_done=T)</code></pre>
+</div>
+<div id="summary-of-fit1" class="section level5">
+<h5>summary of fit1</h5>
+<pre><code>&gt; summary(fit1)
+Formula:
+Surv(entry_age, exit_age, outcome) ~ lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+               coef   se(coef)         z  Pr(&gt;|z|)
+dose_cum 0.02401129 0.04400845 0.5456063 0.5853366
+
+AIC:  313.8759 
+Deviance:  311.8759 
+Number of risk sets:  18 </code></pre>
+</div>
+<div id="summary-of-fit2" class="section level5">
+<h5>summary of fit2</h5>
+<pre><code>&gt; summary(fit2)
+Formula:
+Surv(entry_age, exit_age, outcome) ~ loglin(factor(country)) + 
+     lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+               coef   se(coef)         z  Pr(&gt;|z|)
+dose_cum 0.02181835 0.04152847 0.5253829 0.5993171
+
+Log Linear Parameter Summary Table:
+                 coef exp(coef)  se(coef)          z  Pr(&gt;|z|)
+country_Fr 0.03444314  1.035043 1.0003142 0.03443232 0.9725324
+country_Ge 0.70025564  2.014268 0.8660814 0.80853332 0.4187836
+country_It 0.70146822  2.016712 0.8661484 0.80987072 0.4180145
+country_Sp 0.04522023  1.046258 1.0001470 0.04521359 0.9639371
+country_UK 0.69520396  2.004118 0.8661149 0.80266945 0.4221658
+
+AIC:  321.9591 
+Deviance:  309.9591 
+Number of risk sets:  18</code></pre>
+</div>
+<div id="confidence-intervals-for-fit1-parameters" class="section level5">
+<h5>confidence intervals for fit1 parameters</h5>
+<pre><code>&gt; confint(fit1)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+               coef   lower .95 upper .95
+dose_cum 0.02401129 -0.01109805 0.8468688</code></pre>
+</div>
+<div id="confidence-intervals-for-fit2-parameters" class="section level5">
+<h5>confidence intervals for fit2 parameters</h5>
+<pre><code>&gt; confint(fit2)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+               coef   lower .95 upper .95
+dose_cum 0.02181835 -0.01138425  0.774703
+
+Log Linear Parameter - Wald ci:
+                 coef exp(coef) lower .95 upper .95
+country_Fr 0.03444314  1.035043 0.1457101  7.352371
+country_Ge 0.70025564  2.014268 0.3688989 10.998335
+country_It 0.70146822  2.016712 0.3692980 11.013126
+country_Sp 0.04522023  1.046258 0.1473371  7.429602
+country_UK 0.69520396  2.004118 0.3670159 10.943634</code></pre>
+</div>
+<div id="likelihood-ratio-test-between-nested-and-nesting-models" class="section level5">
+<h5>likelihood ratio test between nested and nesting models</h5>
+<pre><code>&gt; f_lrt(fit1,fit2)
+$lrt
+[1] 1.916819
+
+$lrt_pval
+[1] 0.3835023</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+</div>
+<div id="using-a-wide-format-data-set-as-input-cohort" class="section level3">
+<h3>Using a wide format data set as input cohort</h3>
+<div id="load-library-1" class="section level5">
+<h5>load library</h5>
+<pre><code>&gt; library(rERR)</code></pre>
+</div>
+<div id="look-at-the-data-set-1" class="section level5">
+<h5>look at the data set</h5>
+<pre><code>&gt; head(cohort_wf)
+id sex YearInit AgeAtEntry age_at_event outcome end_status ses number_of_ct    ctage1 ctage2 ... ctage35 dose1 dose2 ... dose35 country
+ 1   1     1983   7.957093    18.957093       0          2   1            1  7.957093      0           0  10.5     0          0      It
+ 2   1     1988  13.857040    18.857040       0          2   1            2 13.857040      0           0  10.4     0          0      Sp
+ 4   1     2008  16.496089    19.496089       0          2   1            1 16.496089      0           0   3.8     0          0      It
+12   1     2004   8.134463    17.134463       0          2   3            2  8.134463      0           0   7.0     0          0      Sp
+13   1     2009   2.554935     6.554935       0          2   2            2  2.554935      0           0   3.6     0          0      UK
+16   1     1996  16.968197    18.968197       0          2   3            1 16.968197      0           0   3.5     0          0      Fr</code></pre>
+</div>
+<div id="set-the-formulas-for-the-models" class="section level5">
+<h5>set the formulas for the models</h5>
+<pre><code>&gt; formula1  &lt;- Surv(AgeAtEntry,age_at_event,outcome) ~ lin(dose_cum) + strata(sex)
+&gt; formula2  &lt;- Surv(AgeAtEntry,age_at_event,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)</code></pre>
+</div>
+<div id="fit-the-models-1" class="section level5">
+<h5>fit the models</h5>
+<pre><code>&gt; fit1 &lt;- f_fit_linERR_wf(formula1,data=cohort_wf,id_name=&quot;id&quot;,doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
+                          covars=cohort_wf[,c(&quot;sex&quot;,&quot;country&quot;)],lag=2,exclusion_done = F)
+
+&gt; fit2 &lt;- f_fit_linERR_wf(formula2,data=cohort_wf,id_name=&quot;id&quot;,doses=cohort_wf[,45:79],times=cohort_wf[,10:44],
+                          covars=cohort_wf[,c(&quot;sex&quot;,&quot;country&quot;)],lag=2,exclusion_done = F)</code></pre>
+</div>
+<div id="summary-of-fit1-1" class="section level5">
+<h5>summary of fit1</h5>
+<pre><code>&gt; summary(fit1)
+Formula:
+Surv(AgeAtEntry, age_at_event, outcome) ~ lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+               coef   se(coef)        z  Pr(&gt;|z|)
+dose_cum 0.03882416 0.03977917 0.975992 0.3290684
+
+AIC:  599.129 
+Deviance:  597.129 
+Number of risk sets:  34</code></pre>
+</div>
+<div id="summary-of-fit2-1" class="section level5">
+<h5>summary of fit2</h5>
+<pre><code>&gt; summary(fit2)
+Formula:
+Surv(AgeAtEntry, age_at_event, outcome) ~ loglin(factor(country)) + 
+    lin(dose_cum) + strata(sex)
+
+Linear Parameter Summary Table:
+              coef   se(coef)         z  Pr(&gt;|z|)
+dose_cum 0.0402001 0.04089224 0.9830742 0.3255709
+
+Log Linear Parameter Summary Table:
+                    coef    exp(coef)    se(coef)           z  Pr(&gt;|z|)
+country_Fr -14.827568523 3.634702e-07 616.7428233 -0.02404174 0.9808193
+country_Ge  -0.005785829 9.942309e-01   0.5345654 -0.01082343 0.9913643
+country_It   0.312718515 1.367137e+00   0.4929068  0.63443745 0.5257954
+country_Sp  -0.606014765 5.455206e-01   0.6268803 -0.96671535 0.3336864
+country_UK  -0.159932110 8.522016e-01   0.5565602 -0.28735816 0.7738381
+
+AIC:  593.5899 
+Deviance:  581.5899 
+Number of risk sets:  34 </code></pre>
+</div>
+<div id="confidence-intervals-for-fit1-parameters-1" class="section level5">
+<h5>confidence intervals for fit1 parameters</h5>
+<pre><code>&gt; confint(fit1)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+               coef    lower .95 upper .95
+dose_cum 0.03882416 -0.003425317  0.278199</code></pre>
+</div>
+<div id="confidence-intervals-for-fit2-parameters-1" class="section level5">
+<h5>confidence intervals for fit2 parameters</h5>
+<pre><code>&gt; confint(fit2)
+Confidence intervals:
+
+Linear Parameter - Likelihood ratio test ci:
+              coef    lower .95 upper .95
+dose_cum 0.0402001 -0.003126192 0.2904963
+
+Log Linear Parameter - Wald ci:
+                    coef    exp(coef) lower .95 upper .95
+country_Fr -14.827568523 3.634702e-07 0.0000000       Inf
+country_Ge  -0.005785829 9.942309e-01 0.3487100  2.834720
+country_It   0.312718515 1.367137e+00 0.5202941  3.592319
+country_Sp  -0.606014765 5.455206e-01 0.1596650  1.863857
+country_UK  -0.159932110 8.522016e-01 0.2862843  2.536806</code></pre>
+</div>
+<div id="likelihood-ratio-test-between-nested-and-nesting-models-1" class="section level5">
+<h5>likelihood ratio test between nested and nesting models</h5>
+<pre><code>&gt; f_lrt(fit1,fit2)
+$lrt
+[1] 15.53904
+
+$lrt_pval
+[1] 0.0004224168</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+</div>
+<div id="save-time-in-multi-analysis-of-the-same-data-set" class="section level3">
+<h3>Save time in multi analysis of the same data set</h3>
+<p>The process of fitting the model include an internal transformation of the data that can slow down the time of all process.</p>
+<p>Then if we need to run several analysis with the same data set, then we can run just one time the transfomation and run several analysis on the transformed data set.</p>
+<p>The process can be splitted in three blocs: * Do the exclusion * Transform de data * fit the model</p>
+<pre><code>f_fit_linERR_ef &lt;- function (formula, data, id_name, dose_name, time_name, covars_names,lag,exclusion_done=F) 
+{
+  # exclude subjects with the follow-up shorter than lag (lattency period) time
+  if(!exclusion_done)
+    data           &lt;- f_exclusion(formula,data,lag)
+  
+  # this piece of code is encapsuled in the function: f_to_event_table_ef_all
+  {
+    form          &lt;- f_parse_formula(formula)
+    entry_name    &lt;- as.character(form$Surv$entry)
+    exit_name     &lt;- as.character(form$Surv$exit)
+    outcome_name  &lt;- as.character(form$Surv$outcome)
+    dt1           &lt;- f_to_event_table_ef_v2(id = id_name, start = entry_name, 
+                                            stop = exit_name, outcome = outcome_name, data = data, 
+                                            doses = dose_name, times = time_name, covars = covars_names)
+  }
+  
+  # this piece of code is encapsuled in the function: f_fit_linERR_all
+  {
+    dt2           &lt;- f_to_model_data(formula, data=dt1, id_name, time_name)
+    n_lin_vars    &lt;- attr(dt2, &quot;n_lin_vars&quot;)
+    n_loglin_vars &lt;- attr(dt2, &quot;n_loglin_vars&quot;)
+    rsets         &lt;- f_risksets(formula, data = dt2, lag, id_name, time_name)
+    fit           &lt;- f_fit_linERR(formula, data = dt2, rsets, n_lin_vars, 
+                                  n_loglin_vars, id_name, time_name)
+    return(fit)
+  }
+}</code></pre>
+<p>Then if the exclusion and the data transfomration are common in two analysis, we do not have to do it twice:</p>
+<pre><code># specify the models we want to run
+&gt; formula1       &lt;- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+&gt; formula2       &lt;- Surv(entry_age,exit_age,outcome) ~ loglin(factor(country)) + lin(dose_cum) + strata(sex)
+
+# we only need to set the variables:
+&gt; data           &lt;- cohort_ef
+&gt; exclusion_done &lt;- TRUE
+&gt; lag            &lt;- 2
+&gt; id_name        &lt;- &quot;id&quot;
+&gt; time_name      &lt;- &quot;age&quot;
+&gt; dose_name      &lt;- &quot;dose&quot;
+
+# do the exclusion if needed
+&gt; if (!exclusion_done) 
+        data &lt;- f_exclusion(formula, data, lag)
+        
+# transform the data including all the covariates required in all analysis
+&gt; dt1            &lt;- f_to_event_table_ef_all(formula=formula1,data=data,id_name,dose_name,
+                                            time_name,covars_names=c(&quot;sex&quot;,&quot;country&quot;))
+
+# fit the first model
+&gt; fit1          &lt;- f_fit_linERR_all(formula1,data=dt1,id_name,time_name)
+
+# fit the second model
+&gt; fit2          &lt;- f_fit_linERR_all(formula2,data=dt1,id_name,time_name)</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+<div id="using-categorical-exposure" class="section level3">
+<h3>Using Categorical Exposure</h3>
+<p>Often we want to know how the risk evolves through levels of exposure, to do this we can create a categorization of the dose and then put this categories into the model in the loglinear part.</p>
+<p>To do this the whole process can be broken in three main steps: * Do the first data transformation * Compute the categories of exposure * Fit the model, so run the optimization</p>
+<p>##### Do the first transformation</p>
+<p>Set the formula for the transformation and for the further categorical model, take into account that <em>dose_cat</em> still not exist, later on will be created:</p>
+<p><code>&gt; formula &lt;- Surv(entry_age,exit_age,outcome) ~ loglin(dose_cat)+strata(sex)</code></p>
+<p>Then run the transormation part, <code>&gt; dt1 &lt;- f_to_event_table_ef_all(formula,data = cohort_ef,id_name = &quot;id&quot;,dose_name = &quot;dose&quot;,                                 time_name = &quot;age&quot;,covars_names = c(&quot;sex&quot;,&quot;country&quot;))</code></p>
+<p>Look at the new data set:</p>
+<pre><code>&gt; head(dt1)
+# A tibble: 6 x 13
+# Groups:   id_ [3]
+     id   sex entry_age exit_age outcome   age  dose country   id_  n_pe dose_num dose_cum   id1
+  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+1    10     2      9.88     12.5       0  7.88 15.8  Be         10     1    15.8     15.8      1
+2    10     2      9.88     12.5       0 12.5   0    Be         10     0     0       15.8      1
+3    14     1     11.1      12.4       0  9.09 14.0  UK         14     1    14.0     14.0      2
+4    14     1     11.1      12.4       0  9.17 13.8  UK         14     2    13.8     27.8      2
+5    14     1     11.1      12.4       0 12.4   0    UK         14     0     0       27.8      2
+6    15     1      9.55     12.3       0  7.55  9.25 Fr         15     1     9.25     9.25     3</code></pre>
+<div id="compute-the-categories-of-exposure" class="section level5">
+<h5>Compute the categories of exposure</h5>
+<p>The variable that will be categorized is <em>dose_cum</em> which is the cumulative dose at time <em>age</em>. To decide what are the more appropiate cutoffs for the exposure levels usually basic descriptives are used:</p>
+<pre><code>&gt; summary(dt1$dose_cum)
+&gt; hist(log(dt1$dose_cum))</code></pre>
+<p><strong>Observation</strong> More accurate cutoffs can be described if only look at the doses that will be involved in the model, so it would imply to just look at the doses of the subjects in the risksets at the relatives failtimes.</p>
+<p>After see the distributions of several sets of cutoffs, select the choice:</p>
+<pre><code>&gt; dt1$dose_cat &lt;- cut(dt1$dose_cum, breaks = c(0,5,10,25,100,1000), right=F )
+&gt; plyr::count(dt1$dose_cat)
+            x  freq
+1       [0,5) 18455
+2      [5,10) 26262
+3     [10,25) 46838
+4    [25,100) 37005
+5 [100,1e+03)  7490</code></pre>
+<p>Fit the model</p>
+<pre><code>&gt; fit &lt;- f_fit_linERR_all(formula,data=dt1,id_name = &quot;id&quot;,time_name = &quot;age&quot;,lag = 2)
+&gt; summary(fit)
+Formula:
+Surv(entry_age, exit_age, outcome) ~ loglin(dose_cat) + strata(sex)
+
+Log Linear Parameter Summary Table:
+                            coef    exp(coef)    se(coef)            z  Pr(&gt;|z|)
+dose_cat_[5,10)      -17.3175712 3.013522e-08 8388.608701 -0.002064415 0.9983528
+dose_cat_[10,25)       0.7851632 2.192765e+00    1.094160  0.717594248 0.4730075
+dose_cat_[25,100)      1.6628654 5.274403e+00    1.073705  1.548717024 0.1214498
+dose_cat_[100,1e+03) -14.0343748 8.034308e-07 2372.656914 -0.005915046 0.9952805
+
+AIC:  305.9834 
+Deviance:  297.9834 
+Number of risk sets:  18</code></pre>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+</div>
+<div id="plot-the-partial-log-likelihood-function" class="section level3">
+<h3>Plot the partial log likelihood function</h3>
+<p>There is an option to display the shape of the log likelihood function:</p>
+<pre><code># set the formulas for the models
+formula1  &lt;- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+
+# fit the model
+fit1 &lt;- f_fit_linERR_ef(formula1,data=cohort_ef,id_name=&quot;id&quot;,dose_name=&quot;dose&quot;,
+                        time_name=&quot;age&quot;,covars_names=c(&quot;sex&quot;),lag=2,exclusion_done=TRUE)
+
+# plot the partial loglikelihood function
+f_plot_linERR_ef(fit1,formula1,data=cohort_ef,id_name=&quot;id&quot;,dose_name=&quot;dose&quot;,
+                 time_name=&quot;age&quot;,covars_names=c(&quot;sex&quot;),lag=2,exclusion_done=TRUE)</code></pre>
+<p>And it appears the following plot:</p>
+<div class="figure">
+<img src="data:image/png;base64,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" />
+
+</div>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>B. Langholz and D. B. Richardson. <em>Fitting general relative risk models for survival time and matched case-control analysis.</em> American journal of epidemiology, 171(3):377-383, 2010.</p>
+<p>D. L. Preston, J. H. Lubin, D. A. Pierce, and M. E. McConney. <em>Epicure: User’s Guide.</em> HiroSoft International Corporation, Seattle, WA, 1993.</p>
+<p><a href="https://github.com/fbr600/rERR/blob/master/README.md#rerr-package">back</a></p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

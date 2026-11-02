@@ -1,0 +1,13 @@
+cell  1 (cox/add/ind): 2000 reps in 41.1 min
+cell  2 (cox/add/ar1): 2000 reps in 41.1 min
+cell  3 (cox/add/dex): 2000 reps in 41.9 min
+cell  4 (cox/mult/ind): 2000 reps in 56.9 min
+cell  5 (cox/mult/ar1): 2000 reps in 55.3 min
+cell  6 (cox/mult/dex): 2000 reps in 54.7 min
+cell  7 (err/add/ind): 2000 reps in 41.8 min
+cell  8 (err/add/ar1): 2000 reps in 41.9 min
+cell  9 (err/add/dex): 2000 reps in 41.8 min
+cell 10 (err/mult/ind): 2000 reps in 54.7 min
+cell 11 (err/mult/ar1): 2000 reps in 54.4 min
+cell 12 (err/mult/dex): 2000 reps in 54.4 min
+FINISHED

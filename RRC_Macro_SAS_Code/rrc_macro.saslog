@@ -1,0 +1,793 @@
+This program ran on mint03 /d/q1/8003238.1.linux12h.q
+1                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M6) 
+      Licensed to CHANNING DIVISION OF NETWORK MEDICINE - T&R, Site 70123069.
+NOTE: This session is executing on the Linux 3.10.0-1160.45.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Analytical products:
+      
+      SAS/STAT 15.1
+      SAS/ETS 15.1
+      SAS/OR 15.1
+      SAS/IML 15.1
+      SAS/QC 15.1
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-1160.45.1.el7.x86_64 #1 SMP Wed Oct 13 17:20:51 UTC 2021 x86_64 CentOS Linux release 7.9.2009 (Core) 
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.24 seconds
+      cpu time            0.08 seconds
+      
+1          /*===================================================================================
+2             Macro RRC - measurement error correction for time-varying exposures
+3             for Cox Proportional Hazard model.
+4          
+5            This macro can be used for
+6          
+7            1: time-varying cumulative average exposure
+8            2: b~a-month moving average exposure
+9            3: time-varying cumulative total exposure
+10           4: time-varying point exposure
+11           5: time-independent exposure
+12         
+13           Residual method is not recommended for the analysis anymore. Please use residual=0 if possible.
+14         
+15         ===================================================================================*/
+16         
+17         
+18         %macro rrc
+19         (
+20         id=,                /* Variable name of ID, required */
+21         main=,              /* Name of main dataset, required */
+22         validation=,        /* Name of validation dataset, required */
+23         surrogate=,         /* exposure with error in main dataset, required */
+24         true=,              /* exposure without error in main and validation dataset, required */
+25         confounder= ,       /* covariates adjusted in the model, optional */
+26         extravariableinval=,   /* extra variables included in the measurement error model, NOT in the primary regression
+26       ! model*/
+27         extravariableinmain=, /* extra variables included in the primary regression model, NOT in the measurement error
+27       ! model */
+28         case= ,             /* variable that indicates whether an event occurs or not, required */
+29         time= ,             /* variable for time-to-event outcome, required */
+30         missing=,           /* missing indicator, new added */
+31         period=,            /* period indicator for exposure, new added */
+32         groupnum=5,         /* the minimum number of subjects in each risk set, optional,  default=5 */
+33         increments=1,       /* the unit of expsoure, optional, default=1 */
+2                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+34         type=1,             /* type of data,
+35                                1: time-varying cumulative average exposure
+36                                2: b~a-month moving average exposure
+37                                3: time-varying cumulative total exposure
+38                                4: time-varying point exposure
+39                                5: time-independent exposure */
+40         month=12,           /* for 12-month average exposure with month1=1, could be any other integer */
+41         month1=1,           /* for b~a-month moving average exposure. could be any other integer and month1<month */
+42         emodel=1,           /* if model=1, it assumes general linear measurement error model;
+43                                if model=2, it assumes additive measurement error model.
+44                                only required for type=1. */
+45         icc=,               /* the correlation of repeated measurements of true exposure,
+46                                only required for type=1, emodel=2 */
+47         dampfactor=,        /* the damp factor of the covariance matrix for true expsoure, only required for type=1,
+47       ! emodel=2*/
+48         timestart=,         /* the start of follow-up time, for time-independent exposure, only required for type=5*/
+49         timeend=,           /* the end of follow-up time, for time-independent exposure, only required for type=5*/
+50         residual=0,         /* if residual=1,do residual analysis for dimension reduction; otherwise, residual=0,*/
+51         initialvalue=,     /* the initial value for all the exposure and covariates */
+52         xupper=,          /* the upper bound for all the exposure and covariates */
+53         xlower=,         /* the lower bound for all the exposure and covariates */
+54         filename=RRCOutput.txt,   /*filename for the output file*/
+55         csvfilename=none,       /* filename for CSV output */
+56         path=/tmp,                 /* path to directory to put data files, you can use . to output everything in your own
+56       ! directory */
+57         
+58         /* The following option is only for Type=2 now */
+59         
+60         truepredict=, /* Name of the variable for predicted true value */
+61         surrogatefunc=,  /* Name of the variable for the function (such as 12 month) of surroagte exposure for output */
+62         outdata=  /* Name of the output data for the main study with both the surrogate and the predicted true exposure */
+63         );
+64         
+65         /* Check some arguments */
+66         %let nex=%sysfunc(countw(&true,' '));
+67         %let nexs=%sysfunc(countw(&surrogate,' '));
+68         %let ncovm=%sysfunc(countw(&confounder,' '));
+69         %let ncove=%sysfunc(countw(&extravariableinval,' '));
+70         %let ncovem=%sysfunc(countw(&extravariableinmain,' '));
+71         
+72         %if &type ne 2 %then %do;
+73             %let ncov=%sysfunc(countw(&confounder,' '));
+74         %end;
+75         
+76         %if &nex^=&nexs %then %goto out1;
+77         %if &nex=0 or &nexs=0 %then %goto out4;
+78         %let in_main=%sysfunc(countw(&main,' '));
+79         %if &in_main=0 %then %goto out2;
+80         %let in_vali=%sysfunc(countw(&validation,' '));
+81         %if &in_vali=0 %then %goto out3;
+82         
+83         /*indicator for residual analysis*/
+84         %let isres=0;
+85         
+86         data mainy0;
+87         %if &type=5 %then %do;
+88             set &main;
+89             do &time=&timestart to &timeend;
+90                 if &timestart<&timeend then do;
+91                     if &time<&timeend then casenew=0;
+92                     if &time=&timeend then casenew=&case;
+93                     end;
+94                 else do;
+95                     casenew=&case;
+96                     end;
+97                 output;
+98             end;
+99         %end;
+100        %else %do;
+101         set &main;
+102         casenew=&case;
+103        %end;
+104        run;
+105        
+106        /*sort the data*/
+107        proc sort data=mainy0;
+3                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+108            by &id &time;
+109           run;
+110        
+111        proc sort data=&validation;
+112            by &id &time;
+113           run;
+114        
+115        data validationy0;
+116            set &validation;
+117            nindex=_N_;
+118        run;
+119        
+120        
+121        
+122        
+123        /* Not recommending residual analysis for now */
+124        
+125        %if &residual=1 %then %do;
+126        
+127            %put ****** The residual analysis is not recommended for this analysis ********;
+128            %put ****** Please use residual=0 **********;
+129            endsas;
+130        
+131        %end;
+132        
+133        
+134        /* this else means if residual = 0 */
+135        %else %do;
+136        
+137         %if &type=2 %then %do;
+138        
+139                data mainy0;
+140                    set mainy0;
+141                    array sur{&nex} &surrogate;
+142        
+143                    do i=1 to &nex;
+144                        if sur{i}=. then sur{i}=0;
+145                        end;
+146                run;
+147        
+148                %if &ncovm>0 %then %do;
+149                    data mainy0;
+150                        set mainy0;
+151                        array cov{&ncovm} &confounder;
+152        
+153                        do i=1 to &ncovm;
+154                            if cov{i}=. then delete;
+155                            end;
+156                    run;
+157        
+158                    %end;
+159        
+160                %if &ncove>0 %then %do;
+161                    data mainy0;
+162                        set mainy0;
+163                        array ecov{&ncove} &extravariableinval;
+164        
+165                        do i=1 to &ncove;
+166                            if ecov{i}=. then delete;
+167                            end;
+168                    run;
+169        
+170                    %end;
+171        
+172                %if &ncovem>0 %then %do;
+173                    data mainy0;
+174                        set mainy0;
+175                        array ecov{&ncovem} &extravariableinmain;
+176        
+177                        do i=1 to &ncovem;
+178                            if ecov{i}=. then delete;
+179                            end;
+180                    run;
+181        
+182                    %end;
+183        
+4                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+184         %end;
+185        
+186        /*corresponding to other types*/
+187        
+188         %else %do;
+189        
+190                data mainy0;
+191                    set mainy0;
+192                    array sur{&nex} &surrogate;
+193                    do i=1 to &nex;
+194                        if sur{i}=. then delete;
+195                        end;
+196                run;
+197        
+198            %if &ncovm>0 %then %do;
+199                data mainy0;
+200                    set mainy0;
+201                    array cov{&ncovm} &confounder;
+202        
+203                    do i=1 to &ncovm;
+204                        if cov{i}=. then delete;
+205                        end;
+206        
+207                    run;
+208        
+209             %end;
+210        
+211        
+212             %if &ncove>0 %then %do;
+213                 data mainy0;
+214                     set mainy0;
+215                     array ecov{&ncove} &extravariableinval;
+216        
+217                     do i=1 to &ncove;
+218                        if ecov{i}=. then delete;
+219                        end;
+220                 run;
+221        
+222              %end;
+223        
+224              %if &ncovem>0 %then %do;
+225                  data mainy0;
+226                      set mainy0;
+227                      array ecov{&ncovem} &extravariableinmain;
+228        
+229                      do i=1 to &ncovem;
+230                         if ecov{i}=. then delete;
+231                         end;
+232                  run;
+233        
+234               %end;
+235        
+236        
+237         %end;
+238        
+239        
+240        /*convert sas dataset into .dat file for Fortran to read data*/
+241        %let fname=main;
+242        %if &type=2 %then %do;
+243        
+244          data mainy;
+245          set mainy0;
+246          file "&path./&fname..&sysjobid..dat";
+247          put &id &time casenew &surrogate &extravariableinval &confounder &extravariableinmain &period &missing;
+248          run;
+249        
+250        %end;
+251        %else %if &type=1 and &emodel=2 %then %do;
+252        
+253          data mainy;
+254          set mainy0;
+255          file "&path./&fname..&sysjobid..dat";
+256          put &id &time casenew &surrogate &confounder;
+257          run;
+258        
+259        %end;
+5                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+260        %else %do;
+261        
+262          data mainy;
+263          set mainy0;
+264          file "&path./&fname..&sysjobid..dat";
+265          put &id &time casenew &surrogate &extravariableinval &confounder &extravariableinmain;
+266          run;
+267        
+268        %end;
+269        
+270        
+271        
+272        %let fname=validation;
+273        %if &emodel=1 %then %do;
+274        
+275           data validationy;
+276           set validationy0;
+277           file "&path./&fname..&sysjobid..dat";
+278           put &id &time &true &surrogate &extravariableinval &confounder;
+279           run;
+280        
+281        %end;
+282        
+283        %else %do;
+284        
+285           data validationy;
+286           set validationy0;
+287           file "&path./&fname..&sysjobid..dat";
+288           put &id &time &true &surrogate &confounder;
+289           run;
+290        
+291        %end;
+292        
+293        
+294        /*corresponding to the end of the residual analysis part*/
+295        %end;
+296        
+297        title "Main study";
+298        proc print data=mainy0(obs=100);
+299            var &id &time casenew &surrogate &extravariableinval &extravariableinmain &period &missing;
+300        run;
+301        title;
+302        
+303        title "Validation study";
+304        proc print data=validationy0;
+305            var &id &time &true &surrogate &extravariableinval;
+306        run;
+307        title;
+308        
+309        
+310        
+311        
+312        
+313        proc sql;
+314        select count(&id) into: mainobs
+315        from mainy;
+316        quit;
+317        
+318        proc sql;
+319        create table mainid as
+320        select unique(&id),count(&time) as idobs
+321        from mainy group by &id;
+322        quit;
+323        
+324        proc sql;
+325        select count(&id) into: nmain
+326        from mainid;
+327        quit;
+328        
+329        proc sql;
+330        select max(idobs) into: nage_main
+331        from mainid;
+332        quit;
+333        
+334        data mainoutcome;
+335        set mainy;
+6                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+336        where casenew=1;
+337        run;
+338        
+339        proc sort data=mainoutcome nodupkey;
+340        by &time;
+341        run;
+342        
+343        proc sql;
+344        select count(&time) into: nageobs
+345        from mainoutcome;
+346        quit;
+347        
+348        proc sql;
+349        select count(&id) into: valobs
+350        from validationy;
+351        quit;
+352        
+353        proc sql;
+354        create table valid as
+355        select unique(&id),count(&time) as validobs
+356        from validationy group by &id;
+357        quit;
+358        
+359        proc sql;
+360        select count(&id) into: nval
+361        from valid;
+362        quit;
+363        
+364        proc sql;
+365        select max(validobs) into: nage_val
+366        from valid;
+367        quit;
+368        
+369        
+370        
+371        /*This part is particularly for the correlation of repeated measurements.*/
+372        
+373        %let fname=covpara;
+374        %if &type=1 and &emodel=2 %then %do;
+375        data covpara;
+376        rho=&icc;
+377        theta=&dampfactor;
+378        run;
+379        data _null_;
+380        set covpara;
+381        file "&path./&fname..&sysjobid..dat";
+382        put rho theta;
+383        run;
+384        %end;
+385        
+386        
+387        /* This part is to output the initial values for the exposure and covariates */
+388        %let fname=xinitial;
+389        data initial;
+390        do i=1 to (&nex+&ncovm+&ncovem);
+391        inival=scan("&initialvalue",i," ");
+392        if inival=. then inival=0;
+393        output;
+394        end;
+395        run;
+396        
+397        data _null_;
+398        set initial;
+399        file "&path./&fname..&sysjobid..dat";
+400        put inival;
+401        run;
+402        
+403        /* This part is to output the upper bound values for the exposure and covariates */
+404        %let fname=xupbound;
+405        data xup;
+406        do i=1 to (&nex+&ncovm+&ncovem);
+407        upval=scan("&xupper",i," ");
+408        if upval=. then upval=5;
+409        output;
+410        end;
+411        run;
+7                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+412        
+413        data _null_;
+414        set xup;
+415        file "&path./&fname..&sysjobid..dat";
+416        put upval;
+417        run;
+418        
+419        
+420        /* This part is to output the lower bound values for the exposure and covariates */
+421        %let fname=xlowbound;
+422        data xlow;
+423        do i=1 to (&nex+&ncovm+&ncovem);
+424        lowval=scan("&xlower",i," ");
+425        if lowval=. then lowval=-5;
+426        output;
+427        end;
+428        run;
+429        
+430        data _null_;
+431        set xlow;
+432        file "&path./&fname..&sysjobid..dat";
+433        put lowval;
+434        run;
+435        
+436        
+437        
+438        /*This part is to output the units for the exposures*/
+439        %let fname=exunit;
+440        data increment;
+441        do i=1 to &nex;
+442        unit=scan("&increments",i, " ");
+443        output;
+444        end;
+445        run;
+446        data _null_;
+447        set increment;
+448        file "&path./&fname..&sysjobid..dat";
+449        put unit;
+450        run;
+451        
+452        
+453        /*This part is to output variable names*/
+454        %let fname=expnames;
+455        data expnames;
+456        do i=1 to &nex;
+457        truename=scan("&surrogate",i);
+458        output;
+459        end;
+460        run;
+461        data _null_;
+462        set expnames;
+463        file "&path./&fname..&sysjobid..dat";
+464        put truename;
+465        run;
+466        
+467        
+468        %let fname=covnames;
+469        data covnames;
+470        do i=1 to &ncovm;
+471        covname=scan("&confounder",i);
+472        output;
+473        end;
+474        
+475        do i=1 to &ncovem;
+476        covname=scan("&extravariableinmain",i);
+477        output;
+478        end;
+479        run;
+480        
+481        data _null_;
+482        set covnames;
+483        file "&path./&fname..&sysjobid..dat";
+484        put covname;
+485        run;
+486        
+487        
+8                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+488        
+489        /* Output run parameters */
+490        %let fname=runparams;
+491        data runparams;
+492        p1 = scan("&nmain",1);
+493        p2 = scan("&nval",1);
+494        p3 = scan("&nageobs",1);
+495        p4 = scan("&nage_val",1);
+496        p5 = scan("&nage_main",1);
+497        p6 = scan("&nex",1);
+498        %if &type=1 and &emodel=2 %then %do;
+499        p7 = scan("&ncov",1);
+500        %end;
+501        p8 = scan("&isres",1);
+502        %if &type=1 and &emodel=1 %then
+503          %do;
+504            p9 = scan("&type",1);
+505          %end;
+506        %else  %if &type=1 and &emodel=2 %then
+507          %do;
+508            p9 = scan("&emodel",1);
+509          %end;
+510        %else
+511          %do;
+512            p9 = scan("&type",1);
+513          %end;
+514        p10 = scan("&mainobs",1);
+515        p11 = scan("&valobs",1);
+516        p12 = scan("&groupnum",1);
+517        %if &type=2 %then %do;
+518        p13 = scan("&month",1);
+519        p14 = scan("&month1",1);
+520        %end;
+521        %if &emodel=1 %then %do;
+522        p15 = scan("&ncovm",1);
+523        p16 = scan("&ncove",1);
+524        p17 = scan("&ncovem",1);
+525        %end;
+526        output;
+527        run;
+528        data _null_;
+529        set runparams;
+530        file "&path./&fname..&sysjobid..dat";
+531        put p1;
+532        put p2;
+533        put p3;
+534        put p4;
+535        put p5;
+536        put p6;
+537        %if &type=1 and &emodel=2 %then %do;
+538        put p7;
+539        %end;
+540        put p8;
+541        put p9;
+542        put p10;
+543        put p11;
+544        put p12;
+545        %if &type=2 %then %do;
+546        put p13;
+547        put p14;
+548        %end;
+549        %if &emodel=1 %then %do;
+550        put p15;
+551        put p16;
+552        put p17;
+553        %end;
+554        run;
+555        
+556        /*Call Unix command to modify RRC Fortran program based on arguments from the users*/
+557        /*
+558                               1: time-varying cumulative average exposure
+559                               2: b~a-month moving average exposure
+560                               3: time-varying cumulative total exposure
+561                               4: time-varying point exposure
+562                               5: time-independent exposure
+563        */
+9                                                      The SAS System                         14:54 Monday, December 13, 2021
+
+564        
+565        %let mydir=/udd/n2bch/SAS/macros/RRC/code;
+566        
+567        /*%let mydir=/udd/resjp/RRC-1.3-ALL/;*/
+568        
+569        
+570        %if &type=1 and &emodel=1 %then
+571          %do;
+572            %let myprog=&mydir.rrc_cum;
+573            %put &myprog &path &sysjobid;
+574            x "&myprog &path &sysjobid";
+575          %end;
+576        %else  %if &type=1 and &emodel=2 %then
+577          %do;
+578            %let myprog=&mydir.rrc_timevarying_method_GENEnew;
+579            x "&myprog &path &sysjobid";
+580          %end;
+581        %else  %if &type=2 %then
+582          %do;
+583            %let myprog=&mydir.rrc_abmon;
+584            x "&myprog &path &sysjobid";
+585          %end;
+586        %else  %if &type=3 %then
+587          %do;
+588            %let myprog=&mydir.rrc_cum;
+589            x "&myprog &path &sysjobid";
+590          %end;
+591        %else
+592          %do;
+593            %let myprog=&mydir.rrc_new;
+594            x "&myprog &path &sysjobid";
+595          %end;
+596        
+597        
+598        %if &type=2 and "&outdata" ne "" %then %do;
+599        
+600        /* merge the xsurrogate data with the xhat data */
+601        %let fname=xhat;
+602        data _main_xhat;
+603            infile "&path./&fname..&sysjobid..dat";
+604            input &id &time &truepredict;
+605        run;
+606        
+607        proc sort data=_main_xhat;
+608            by &id &time;
+609        run;
+610        
+611        
+612        %let fname=xsurrogate;
+613        data _main_xsurr;
+614            infile "&path./&fname..&sysjobid..dat";
+615            input &id &time &surrogatefunc;
+616        run;
+617        
+618        proc sort data=_main_xsurr;
+619            by &id &time;
+620        run;
+621        
+622        
+623        data &outdata;
+624            merge _main_xhat _main_xsurr;
+625            by &id &time;
+626        run;
+627        
+628        
+629        data &outdata;
+630            merge &outdata(in=small) mainy0;
+631            by &id &time;
+632            if small;
+633        run;
+634        
+635        data "&outdata";
+636            set &outdata;
+637        run;
+638        
+639        %end;
+10                                                     The SAS System                         14:54 Monday, December 13, 2021
+
+640        
+641        %if &type=2 %then %do;
+642        
+643        %let fname=xhat;
+644        x "rm &path./&fname..&sysjobid..dat";
+645        
+646        %let fname=xsurrogate;
+647        x "rm &path./&fname..&sysjobid..dat";
+648        
+649        %end;
+650        
+651        %let fname=main;
+652        x "rm &path./&fname..&sysjobid..dat";
+653        %let fname=validation;
+654        x "rm &path./&fname..&sysjobid..dat";
+655        %let fname=exunit;
+656        x "rm &path./&fname..&sysjobid..dat";
+657        %let fname=expnames;
+658        x "rm &path./&fname..&sysjobid..dat";
+659        
+660        %let fname=covnames;
+661        x "rm &path./&fname..&sysjobid..dat";
+662        
+663        %let fname=runparams;
+664        x "rm &path./&fname..&sysjobid..dat";
+665        %let fname=covpara;
+666        %if &type=1 and &emodel=2 %then %do;
+667        x "rm &path./&fname..&sysjobid..dat";
+668        %end;
+669        
+670        
+671        %let fname=xinitial;
+672        x "rm &path./&fname..&sysjobid..dat";
+673        
+674        %let fname=xupbound;
+675        x "rm &path./&fname..&sysjobid..dat";
+676        
+677        %let fname=xlowbound;
+678        x "rm &path./&fname..&sysjobid..dat";
+679        
+680        
+681        %let out=Output;
+682        x "mv &path./&out..&sysjobid..txt &filename";
+683        x "mv &path./&out..&sysjobid..csv &csvfilename";
+684        x "rm -f none";
+685        
+686        %goto out;
+687        
+688        %out1: %err_msg(1);
+689        %out2: %err_msg(2);
+690        %out3: %err_msg(3);
+691        %out4: %err_msg(4);
+692        %out:;
+693        quit;
+694        run;
+695        %mend;
+696        
+697        %macro err_msg(err_num);
+698           %put **********************  ERROR IN SAS MACRO RRC:    **********************;
+699           %put ******                                                                  ******;
+700        
+701           %if &err_num = 1 %then %do;
+702             %put ******    The number of true predictors and the number of surrogate predictors should be equal.
+702      ! ******;
+703                 %end;
+704           %if &err_num = 2 %then %do;
+705             %put ******    The argument main= is required. You need to specify the name of main dataset.    ******;
+706                 %end;
+707           %if &err_num = 3 %then %do;
+708             %put ******    The argument validation= is required. You need to specify the name of validation dataset.
+708      ! ******;
+709                 %end;
+710           %if &err_num = 4 %then %do;
+711             %put ******    The argument true= and surrogate= are required. You need to have at least one true and one
+711      ! surrogare in your datas
+712        ets.    ******;
+11                                                     The SAS System                         14:54 Monday, December 13, 2021
+
+713           %end;
+714        
+715        %mend;
+716        
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.32 seconds
+      cpu time            0.11 seconds
+      

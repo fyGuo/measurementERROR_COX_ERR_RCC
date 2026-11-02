@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exclusion period related with the latency - lag period</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for f_exclusion {rERR}"><tr><td>f_exclusion {rERR}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exclusion period related with the latency - lag period</h2>
+
+<h3>Description</h3>
+
+<p>Exclude subjects in the cohort that have less than lag time of follow up
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+f_exclusion(formula, data, lag)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+<br />
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>initial data set</p>
+</td></tr>
+<tr valign="top"><td><code>lag</code></td>
+<td>
+<p>latency period</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a data set with the exclusion updated
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+f_exclusion(formula,data,lag)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rERR</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

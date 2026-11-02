@@ -1,0 +1,68 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.5in,landscape]{geometry}
+\usepackage{booktabs,threeparttable,xcolor}
+\usepackage[labelformat=empty,justification=raggedright,singlelinecheck=false]{caption}
+\pagestyle{empty}
+\begin{document}
+\begin{table}[ht]\centering\footnotesize
+\begin{threeparttable}
+\caption*{\textbf{Table 2 (scenario sim1, sim1\_pilot, $B = 48$ per cell).} Estimated exposure effects of cumulative total exposure with model misspecification (bold cells with correct model specification).}
+\begin{tabular}{l rrrrrrrr r}
+\toprule
+ & \multicolumn{8}{c}{Estimated $\beta$ (true: Cox 0.4055, ERR 0.423)} & Pairs \\
+\cmidrule(lr){2-9}
+ & \multicolumn{2}{c}{True $x$} & \multicolumn{2}{c}{Naive} & \multicolumn{4}{c}{RRC corrected} & dropped \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-9}
+$\rho(c, C)$ & Cox & ERR & Cox & ERR & Cox.A & Cox.M & ERR.A & ERR.M & (\%) \\
+\midrule
+\multicolumn{10}{l}{\textit{A. Mean $\hat\beta$ over converged fits}} \\[2pt]
+\multicolumn{10}{l}{\textbf{Cox+Additive}\quad Cox true $\beta = 0.4055$, additive independent error} \\
+\quad 0.3 & 0.38 & 0.56 & 0.22 & 0.39 & \boldmath\textbf{0.35} & 0.37 & 0.61 & 1.62 &  \\
+\quad 0.6 & 0.42 & 0.72 & 0.27 & 0.51 & \boldmath\textbf{0.41} & 0.46 & 0.77 & 1.93 &  \\
+\quad 0.9 & 0.51 & 1.01 & 0.34 & 0.68 & \boldmath\textbf{0.51} & 0.52 & 1.02 & 1.14 &  \\
+\midrule
+\multicolumn{10}{l}{\textbf{Cox+Multiplicative}\quad Cox true $\beta = 0.4055$, multiplicative independent error} \\
+\quad 0.3 & 0.37 & 0.61 & 0.24 & 0.37 & 0.37 & \boldmath\textbf{0.37} & 0.57 & 0.57 &  \\
+\quad 0.6 & 0.36 & 0.55 & 0.24 & 0.38 & 0.35 & \boldmath\textbf{0.35} & 0.55 & 0.55 &  \\
+\quad 0.9 & 0.36 & 0.57 & 0.24 & 0.37 & 0.35 & \boldmath\textbf{0.36} & 0.55 & 0.56 &  \\
+\midrule
+\multicolumn{10}{l}{\textbf{ERR+Additive}\quad ERR true $\beta = 0.423$, additive independent error} \\
+\quad 0.3 & 0.32 & 0.44 & 0.21 & 0.31 & 0.31 & 0.35 & \boldmath\textbf{0.46} & 1.88 &  \\
+\quad 0.6 & 0.44 & 0.71 & 0.30 & 0.47 & 0.45 & 0.51 & \boldmath\textbf{0.71} & 1.15 &  \\
+\quad 0.9 & 0.38 & 0.65 & 0.26 & 0.44 & 0.38 & 0.40 & \boldmath\textbf{0.65} & 0.73 &  \\
+\midrule
+\multicolumn{10}{l}{\textbf{ERR+Multiplicative}\quad ERR true $\beta = 0.423$, multiplicative independent error} \\
+\quad 0.3 & 0.32 & 0.53 & 0.26 & 0.42 & 0.40 & 0.39 & 0.66 & \boldmath\textbf{0.63} &  \\
+\quad 0.6 & 0.34 & 0.56 & 0.25 & 0.40 & 0.38 & 0.37 & 0.62 & \boldmath\textbf{0.60} &  \\
+\quad 0.9 & 0.31 & 0.52 & 0.20 & 0.34 & 0.31 & 0.31 & 0.52 & \boldmath\textbf{0.52} &  \\
+\midrule[\heavyrulewidth]
+\multicolumn{10}{l}{\textit{B. Median $\hat\beta$ over all fits; [number of fits not converged or stopped at the cap $\beta = 50$]}} \\[2pt]
+\multicolumn{10}{l}{\textbf{Cox+Additive}\quad Cox true $\beta = 0.4055$, additive independent error} \\
+\quad 0.3 & 0.32 & 0.37 & 0.26 & 0.32 & \boldmath\textbf{0.43} & 0.44 & 0.51 & 0.55 [3] & 28.4 \\
+\quad 0.6 & 0.43 & 0.54 & 0.24 & 0.30 & \boldmath\textbf{0.39} & 0.46 & 0.43 & 0.61 & 12.4 \\
+\quad 0.9 & 0.56 & 0.78 & 0.36 & 0.51 & \boldmath\textbf{0.55} & 0.57 & 0.78 & 0.79 & 4.3 \\
+\midrule
+\multicolumn{10}{l}{\textbf{Cox+Multiplicative}\quad Cox true $\beta = 0.4055$, multiplicative independent error} \\
+\quad 0.3 & 0.38 & 0.51 & 0.24 & 0.31 & 0.36 & \boldmath\textbf{0.39} & 0.50 & 0.49 & 0.0 \\
+\quad 0.6 & 0.37 & 0.52 & 0.24 & 0.33 & 0.38 & \boldmath\textbf{0.36} & 0.47 & 0.47 & 0.0 \\
+\quad 0.9 & 0.33 & 0.40 & 0.21 & 0.26 & 0.31 & \boldmath\textbf{0.31} & 0.40 & 0.39 & 0.0 \\
+\midrule
+\multicolumn{10}{l}{\textbf{ERR+Additive}\quad ERR true $\beta = 0.423$, additive independent error} \\
+\quad 0.3 & 0.37 & 0.43 & 0.25 & 0.30 & 0.31 & 0.43 & \boldmath\textbf{0.42} & 0.51 [1] & 28.5 \\
+\quad 0.6 & 0.40 & 0.53 & 0.34 & 0.42 & 0.51 & 0.58 & \boldmath\textbf{0.68} & 0.72 & 12.4 \\
+\quad 0.9 & 0.35 & 0.44 & 0.26 & 0.31 & 0.39 & 0.39 & \boldmath\textbf{0.46} & 0.48 & 4.2 \\
+\midrule
+\multicolumn{10}{l}{\textbf{ERR+Multiplicative}\quad ERR true $\beta = 0.423$, multiplicative independent error} \\
+\quad 0.3 & 0.37 & 0.51 & 0.27 & 0.34 & 0.43 & 0.44 & 0.56 & \boldmath\textbf{0.52} & 0.0 \\
+\quad 0.6 & 0.33 & 0.46 & 0.24 & 0.32 & 0.37 & 0.36 & 0.49 & \boldmath\textbf{0.50} & 0.0 \\
+\quad 0.9 & 0.32 & 0.36 [1] & 0.21 & 0.26 [1] & 0.33 & 0.32 & 0.40 [1] & \boldmath\textbf{0.39 [1]} & 0.0 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Cox model $\lambda(t) = \lambda_0(t)\exp(\beta x(t))$ with true $\beta_{\mathrm{Cox}} = 0.4055$; ERR model $\lambda(t) = \lambda_0(t)(1 + \beta x(t))$ with true $\beta_{\mathrm{ERR}} = 0.423$. Each fit is compared with the true $\beta$ of the model it fits; the paper's values (for $\beta = 1$ and 1.109) are not shown. True $x$: the same risk model fitted to the true cumulative exposure, separating risk-model misspecification and small-sample bias from measurement error.
+\item $n_1 = 2000$, $n_2 = 500$ (at most 8 pairs each), $T^* = 60$, cumulative incidence about 10\%. Surrogate $C$ has compound symmetry ($\rho = 0.5$) across years, $E(C) = 0.012$; true $c = \gamma_1 C + \epsilon$ with $\gamma_1 = 2/3$ (additive) or $\log c = \gamma_0 + \log C + \epsilon$ with $E(c) = 0.008$ (multiplicative), $\sigma_\epsilon$ set by $\rho(c, C)$; median $x$ 0.21 (additive) and 0.18 (multiplicative).
+\item Pairs dropped: share of validation pairs with $c \le 0$ or $C \le 0$, which the log (.M) calibration cannot use. -- : no fit converged, or not recorded. A median of 50.00 means at least half of the fits stopped at the cap $\beta = 50$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{document}

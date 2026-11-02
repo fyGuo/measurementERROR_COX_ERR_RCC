@@ -1,0 +1,101 @@
+% Simulation 1 settings; generated from R/params.R and results/calibration.csv
+% preamble needs: bm, amsmath (for \text)
+% bio.cls turns \footnote into \thanks after \maketitle, so table notes are a list with a hanging indent
+\begin{table}[!htbp]
+\small
+\centering
+\caption{Simulation 1 Settings Common to All Scenarios}
+\begin{tabular}{|l|c|c|}
+\hline
+\bf Quantity & \bf Notation & \bf Value \\
+\hline
+Main study subjects & $n_1$ & 6,000 \\
+\hline
+Administrative end of follow-up (years) & $T^{*}$ & 55 \\
+\hline
+Validation study subjects & $n_2$ & 2,000 \\
+\hline
+Validation pairs $(c_{ij},C_{ij})$ & -- & 7,500, at most 8 per subject \\
+\hline
+Minimum pairs in a validation risk set & -- & more than 20 \\
+\hline
+Simulation repetitions & $B$ & 2,000 \\
+\hline
+Cox effect coefficient & $\beta_{Cox}$ & $\log(1.5)\approx 0.405$ \\
+\hline
+ERR effect coefficient & $\beta_{ERR}$ & 0.423 \\
+\hline
+Weibull baseline shape & $\theta$ & 4 \\
+\hline
+Target cumulative incidence rate & -- & 10\% \\
+\hline
+Mean annual surrogate exposure & $\E(C_{ij})$ & 0.05 \\
+\hline
+Mean annual true exposure & $\E(c_{ij})$ & 0.025 \\
+\hline
+Censoring & $V_i$ & none other than $T^{*}$ \\
+\hline
+\end{tabular}
+\label{tab:sim1_settings_common}
+\end{table}
+
+\begin{table}[!htbp]
+\small
+\centering
+\caption{Simulation 1 Exposure, Measurement Error and Baseline Hazard Parameters by Scenario}
+\begin{minipage}{\textwidth}
+\centering
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+\hline
+Correlation
+& $\rho_C$\textsuperscript{\textit{a}}
+& $\phi_C$\textsuperscript{\textit{b}}
+& $\mu_C$\textsuperscript{\textit{c}}
+& $\sigma_C$\textsuperscript{\textit{d}}
+& $\gamma_0$\textsuperscript{\textit{e}}
+& $\gamma_1$\textsuperscript{\textit{f}}
+& $\sigma$\textsuperscript{\textit{g}}
+& $\nu\times 10^{3}$\textsuperscript{\textit{h}} \\
+\hline
+\multicolumn{9}{|l|}{\bf Cox+Additive: $C\sim$ MVN, $c_{ij}=\gamma_0+\gamma_1 C_{ij}+\epsilon_{ij}$} \\
+\hline
+Independent & -- & -- & 0.050 & 0.176 & 0.000 & 0.5 & 0.134 & 9.08 \\
+AR(1) & 0.62 & -- & 0.050 & 0.087 & 0.000 & 0.5 & 0.066 & 9.17 \\
+DEX & 0.64 & 0.66 & 0.050 & 0.063 & 0.000 & 0.5 & 0.048 & 9.20 \\
+\hline
+\multicolumn{9}{|l|}{\bf Cox+Multiplicative: $C\sim$ Log-MVN, $\log(c_{ij})=\gamma_0+\gamma_1\log(C_{ij})+\epsilon_{ij}$} \\
+\hline
+Independent & -- & -- & $-$3.935 & 1.371 & $-$1.222 & 1.0 & 1.028 & 9.18 \\
+AR(1) & 0.62 & -- & $-$3.625 & 1.122 & $-$1.047 & 1.0 & 0.842 & 9.21 \\
+DEX & 0.64 & 0.66 & $-$3.421 & 0.923 & $-$0.933 & 1.0 & 0.692 & 9.22 \\
+\hline
+\multicolumn{9}{|l|}{\bf ERR+Additive: $C\sim$ MVN, $c_{ij}=\gamma_0+\gamma_1 C_{ij}+\epsilon_{ij}$} \\
+\hline
+Independent & -- & -- & 0.050 & 0.135 & 0.000 & 0.5 & 0.042 & 9.43 \\
+AR(1) & 0.62 & -- & 0.050 & 0.067 & 0.000 & 0.5 & 0.021 & 9.43 \\
+DEX & 0.64 & 0.66 & 0.050 & 0.048 & 0.000 & 0.5 & 0.015 & 9.43 \\
+\hline
+\multicolumn{9}{|l|}{\bf ERR+Multiplicative: $C\sim$ Log-MVN, $\log(c_{ij})=\gamma_0+\gamma_1\log(C_{ij})+\epsilon_{ij}$} \\
+\hline
+Independent & -- & -- & $-$5.390 & 2.188 & $-$0.952 & 1.0 & 0.719 & 9.45 \\
+AR(1) & 0.62 & -- & $-$4.626 & 1.806 & $-$1.610 & 1.0 & 1.354 & 9.46 \\
+DEX & 0.64 & 0.66 & $-$4.475 & 1.720 & $-$1.525 & 1.0 & 1.290 & 9.45 \\
+\hline
+\end{tabular}
+\par
+{\raggedright\footnotesize
+\begin{list}{}{\setlength{\leftmargin}{1.2em}\setlength{\labelwidth}{0.8em}\setlength{\labelsep}{0.4em}%
+  \setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\topsep}{4pt}\setlength{\partopsep}{0pt}}
+\item[\textsuperscript{\textit{a}}] Correlation between a subject's annual exposures in different years. $\bm{\Sigma_C}$ has diagonal $\sigma_C^2$ and $(j,k)$ entry $\sigma_C^2\,\text{corr}(j,k)$, where corr$(j,k)$ is 0 for independent, $\rho_C^{|j-k|}$ for AR(1) and $\rho_C^{|j-k|^{\phi_C}}$ for DEX, applied to $C_{ij}$ in MVN and $\log(C_{ij})$ in Log-MVN scenarios.
+\item[\textsuperscript{\textit{b}}] Damping parameter of the DEX structure; $\phi_C=1$ gives AR(1).
+\item[\textsuperscript{\textit{c}}] Mean of $C_{ij}$ in MVN and of $\log(C_{ij})$ in Log-MVN scenarios, the same for all years. In Log-MVN scenarios it is set so that $\E(C_{ij})=0.05$.
+\item[\textsuperscript{\textit{d}}] SD of $C_{ij}$ in MVN and of $\log(C_{ij})$ in Log-MVN scenarios. Calibrated per scenario: for Cox+Additive to sd$(X_{i,45})=1.17$, for ERR+Additive to sd$(X_{i,45})=0.90$, and for Multiplicative scenarios to naive model-based SE of 0.059, 0.059, 0.061 (Cox) and 0.083, 0.092, 0.091 (ERR) at $n_1=2,400$.
+\item[\textsuperscript{\textit{e}}] Intercept of the measurement error model, set so that $\E(c_{ij})=0.025$.
+\item[\textsuperscript{\textit{f}}] Slope of the measurement error model. Both values give $\E(c_{ij}\mid C_{ij})=0.5\,C_{ij}$.
+\item[\textsuperscript{\textit{g}}] SD of the error $\epsilon_{ij}\sim N(0,\sigma^2)$, independent across subjects and years. $\sigma/\sigma_C$ is fixed at 0.76 for Cox+Additive, 0.31 for ERR+Additive, 0.75 for Multiplicative scenarios and 0.33 for ERR+Multiplicative with independent correlation.
+\item[\textsuperscript{\textit{h}}] Weibull baseline parameter, with cumulative baseline hazard $(\nu t)^{\theta}$. Calibrated per scenario to the target cumulative incidence rate.
+\end{list}
+\par}
+\end{minipage}
+\label{tab:sim1_settings_cell}
+\end{table}

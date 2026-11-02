@@ -1,0 +1,8 @@
+# system and editor files
+.DS_Store
+.Rhistory
+.Rproj.user/
+
+# LaTeX build files (PDFs are built in a temp directory; these only appear if run by hand)
+*.aux
+*.synctex.gz

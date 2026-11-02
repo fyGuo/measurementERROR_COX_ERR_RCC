@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: ata transformation: Wide format -&gt; Event format required for...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for f_to_event_table_wf_v2 {rERR}"><tr><td>f_to_event_table_wf_v2 {rERR}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ata transformation: Wide format -&gt; Event format required for the model (internal use)</h2>
+
+<h3>Description</h3>
+
+<p>This function organize an input data set wf (wide format) to ef(event format), same as f_to_event_table_wf_all but with the start, stop and outcome from the formula
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+f_to_event_table_wf_v2(id, start, stop, outcome, data, times, doses, covars)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>name of variable containing the names of subjects</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>names of the variable containing the start time</p>
+</td></tr>
+<tr valign="top"><td><code>stop</code></td>
+<td>
+<p>names of the variable containing the stop time</p>
+</td></tr>
+<tr valign="top"><td><code>outcome</code></td>
+<td>
+<p>name of the variable containing the outcome</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>input data set - wide format data set</p>
+</td></tr>
+<tr valign="top"><td><code>times</code></td>
+<td>
+<p>sub data set of times relatives to doses</p>
+</td></tr>
+<tr valign="top"><td><code>doses</code></td>
+<td>
+<p>sub data set of grouped doses</p>
+</td></tr>
+<tr valign="top"><td><code>covars</code></td>
+<td>
+<p>sub data set of the covars that will be involved in the model</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The data set with the event-row format, including the event of exit of the cohort
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ f_to_event_table_wf_v2(id='patientids',start='entry_age',stop='exit_age',
+                              outcome='leukaemia',data,times=data[,11:30],doses=data[,31:50],
+                              covars=data[,c('sex','country','birthcohort')])
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rERR</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

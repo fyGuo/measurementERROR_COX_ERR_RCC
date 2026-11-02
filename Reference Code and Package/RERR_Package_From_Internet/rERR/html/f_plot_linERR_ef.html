@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: plot likelihood function from ef</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for f_plot_linERR_ef {rERR}"><tr><td>f_plot_linERR_ef {rERR}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>plot likelihood function from ef</h2>
+
+<h3>Description</h3>
+
+<p>plot the partial log likelihood function in the case of one dimension in the linear part
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+f_plot_linERR_ef(object, formula, data, id_name, dose_name, time_name,
+  covars_names, lag, exclusion_done = F)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an rERR class object</p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>Surv(entry_time,exit_time,outcome)~loglin(loglin_var1,..,loglin_varn)+<br />
+lin(lin_var1,..,lin_varm)+strata(strat_var1,...strat_varp)</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>data set returned from f_to_model_data</p>
+</td></tr>
+<tr valign="top"><td><code>id_name</code></td>
+<td>
+<p>name of variable containing the names of subjects</p>
+</td></tr>
+<tr valign="top"><td><code>dose_name</code></td>
+<td>
+<p>name of variable containing the doses at each time</p>
+</td></tr>
+<tr valign="top"><td><code>time_name</code></td>
+<td>
+<p>name of the time variable</p>
+</td></tr>
+<tr valign="top"><td><code>covars_names</code></td>
+<td>
+<p>a character vector with the names of the variables used as covariates in the fomrula (adjustments and stratification)</p>
+</td></tr>
+<tr valign="top"><td><code>lag</code></td>
+<td>
+<p>latency period</p>
+</td></tr>
+<tr valign="top"><td><code>exclusion_done</code></td>
+<td>
+<p>a logical indicating wheather the exclusion is already done or not</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>rERR object with the estimation
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# set the formulas for the models
+formula1  &lt;- Surv(entry_age,exit_age,outcome) ~ lin(dose_cum) + strata(sex)
+
+# fit the model
+fit1 &lt;- f_fit_linERR_ef(formula1,data=cohort_ef,id_name="id",dose_name="dose",
+                        time_name="age",covars_names=c("sex"),lag=2,exclusion_done=TRUE)
+                        
+# plot the partial loglikelihood function
+f_plot_linERR_ef(fit1,formula1,data=cohort_ef,id_name="id",dose_name="dose",
+                        time_name="age",covars_names=c("sex"),lag=2,exclusion_done=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rERR</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

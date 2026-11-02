@@ -1,0 +1,48 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.5in,landscape]{geometry}
+\usepackage{booktabs,threeparttable,xcolor}
+\usepackage[labelformat=empty,justification=raggedright,singlelinecheck=false]{caption}
+\pagestyle{empty}
+\begin{document}
+\begin{table}[ht]\centering\footnotesize
+\begin{threeparttable}
+\caption*{\textbf{Table 2 (null effect, null\_pilot, $B = 48$ per cell).} Estimated exposure effects of cumulative total exposure when the true effect is zero, so both risk models are correctly specified (bold cells with correct model specification).}
+\begin{tabular}{l rrrrrrrr r}
+\toprule
+ & \multicolumn{8}{c}{Estimated $\beta$ (true: 0 for both models)} & Pairs \\
+\cmidrule(lr){2-9}
+ & \multicolumn{2}{c}{True $x$} & \multicolumn{2}{c}{Naive} & \multicolumn{4}{c}{RRC corrected} & dropped \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-9}
+$\rho(c, C)$ & Cox & ERR & Cox & ERR & Cox.A & Cox.M & ERR.A & ERR.M & (\%) \\
+\midrule
+\multicolumn{10}{l}{\textit{A. Mean $\hat\beta$ over converged fits}} \\[2pt]
+\multicolumn{10}{l}{\textbf{Additive}\quad Cox and ERR true $\beta = 0$, additive independent error} \\
+\quad 0.3 & $-$0.02 & 0.06 & $-$0.05 & 0.04 & \boldmath\textbf{$-$0.06} & $-$0.11 & \boldmath\textbf{0.08} & 0.09 &  \\
+\quad 0.6 & 0.02 & 0.15 & 0.01 & 0.12 & \boldmath\textbf{0.01} & $-$0.01 & \boldmath\textbf{0.19} & 0.35 &  \\
+\quad 0.9 & 0.05 & 0.31 & 0.03 & 0.21 & \boldmath\textbf{0.05} & 0.04 & \boldmath\textbf{0.31} & 0.33 &  \\
+\midrule
+\multicolumn{10}{l}{\textbf{Multiplicative}\quad Cox and ERR true $\beta = 0$, multiplicative independent error} \\
+\quad 0.3 & $-$0.03 & 0.05 & $-$0.03 & 0.02 & $-$0.04 & \boldmath\textbf{$-$0.05} & 0.03 & \boldmath\textbf{0.03} &  \\
+\quad 0.6 & $-$0.07 & 0.05 & $-$0.05 & 0.03 & $-$0.06 & \boldmath\textbf{$-$0.07} & 0.05 & \boldmath\textbf{0.04} &  \\
+\quad 0.9 & $-$0.06 & 0.05 & $-$0.05 & 0.04 & $-$0.07 & \boldmath\textbf{$-$0.07} & 0.06 & \boldmath\textbf{0.06} &  \\
+\midrule[\heavyrulewidth]
+\multicolumn{10}{l}{\textit{B. Median $\hat\beta$ over all fits; [number of fits not converged or stopped at the cap $\beta = 50$]}} \\[2pt]
+\multicolumn{10}{l}{\textbf{Additive}\quad Cox and ERR true $\beta = 0$, additive independent error} \\
+\quad 0.3 & $-$0.06 & $-$0.06 & $-$0.06 & $-$0.06 & \boldmath\textbf{$-$0.05} & $-$0.09 & \boldmath\textbf{$-$0.05} & $-$0.08 [3] & 28.4 \\
+\quad 0.6 & 0.12 & 0.13 & 0.06 & 0.07 [1] & \boldmath\textbf{0.10} & 0.11 & \boldmath\textbf{0.12 [1]} & 0.13 & 12.4 \\
+\quad 0.9 & 0.13 & 0.15 [1] & 0.10 & 0.11 [1] & \boldmath\textbf{0.14} & 0.12 & \boldmath\textbf{0.15 [1]} & 0.14 [1] & 4.3 \\
+\midrule
+\multicolumn{10}{l}{\textbf{Multiplicative}\quad Cox and ERR true $\beta = 0$, multiplicative independent error} \\
+\quad 0.3 & $-$0.05 & $-$0.04 [6] & $-$0.04 & $-$0.05 [5] & $-$0.04 & \boldmath\textbf{$-$0.07} & $-$0.06 [5] & \boldmath\textbf{$-$0.07 [5]} & 0.0 \\
+\quad 0.6 & $-$0.04 & $-$0.04 [7] & $-$0.04 & $-$0.05 [7] & $-$0.07 & \boldmath\textbf{$-$0.07} & $-$0.07 [7] & \boldmath\textbf{$-$0.07 [6]} & 0.0 \\
+\quad 0.9 & $-$0.02 & $-$0.02 [7] & $-$0.03 & $-$0.02 [9] & $-$0.04 & \boldmath\textbf{$-$0.04} & $-$0.03 [9] & \boldmath\textbf{$-$0.03 [9]} & 0.0 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Cox model $\lambda(t) = \lambda_0(t)\exp(\beta x(t))$ and ERR model $\lambda(t) = \lambda_0(t)(1 + \beta x(t))$, both with true $\beta = 0$: the hazard does not depend on $x$, so Cox and ERR truth generate the same data and every fit should estimate 0. True $x$: the same risk model fitted to the true cumulative exposure.
+\item $n_1 = 2000$, $n_2 = 500$ (at most 8 pairs each), $T^* = 60$, cumulative incidence about 10\%. Surrogate $C$ has compound symmetry ($\rho = 0.5$) across years, $E(C) = 0.012$; true $c = \gamma_1 C + \epsilon$ with $\gamma_1 = 2/3$ (additive) or $\log c = \gamma_0 + \log C + \epsilon$ with $E(c) = 0.008$ (multiplicative), $\sigma_\epsilon$ set by $\rho(c, C)$; median $x$ 0.21 (additive) and 0.17 (multiplicative).
+\item Pairs dropped: share of validation pairs with $c \le 0$ or $C \le 0$, which the log (.M) calibration cannot use. -- : no fit converged, or not recorded. A median of 50.00 means at least half of the fits stopped at the cap $\beta = 50$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{document}
