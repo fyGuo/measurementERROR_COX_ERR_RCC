@@ -6,7 +6,7 @@ multiplicative) may be misspecified. The estimators are Simulation 1's, reused u
 
 **Status (2026-11-02).** The design is settled. The chosen scenario is `SIM2_SCENARIO=beta1` (true beta = 1
 for both Cox and ERR) at **n1 = 6000, n2 = 2000, 10% incidence**. No full run has been done at these sizes;
-all pilots used n1 = 2000, n2 = 500. A 22-replicate timing run at the new sizes is in `results/beta1_timing`
+all pilots used n1 = 2000, n2 = 500. A 22-replicate timing run at the new sizes (cells 1-3 only) is in `results/beta1_timing`
 (see Part A.4). The full run is meant to be done on a faster Mac.
 
 The README has five parts: A how to run (including on another machine), B the current design, C the
@@ -64,10 +64,13 @@ Cost grows with n1 times the number of events (each fit loops over every risk-se
 | Setting | Time per cell (this Mac, 11 workers) | 2000 replicates x 12 cells |
 |---|---|---|
 | n1 = 2000, n2 = 500 (pilots) | about 0.3 min per 48 replicates | about 2.5 hours |
-| n1 = 6000, n2 = 2000 (current) | see `results/beta1_timing` (22 replicates) and the note below | see below |
+| n1 = 6000, n2 = 2000 (current) | 1.9-2.2 min per 22 replicates (cells 1-3) | about 3 hours per cell, about 36 hours |
 
-Timing run at the current sizes (`SIM2_SCENARIO=beta1 Rscript scripts/run.R beta1_timing 22`): pending; the
-per-cell times will be added here.
+Timing run at the current sizes (`SIM2_SCENARIO=beta1 Rscript scripts/run.R beta1_timing 22`, 2026-11-02, this
+Mac, 11 workers): cells 1-3 took 1.9, 2.1 and 2.2 minutes, that is about one minute per round of 11 replicates.
+2000 replicates are about 182 rounds, so about 3 hours per cell on this Mac; the ERR cells were not timed.
+The run was stopped after cell 3 (`results/beta1_timing` holds cells 1-3). On another machine, the same
+command finishes cells 4-12 and gives that machine's times; scale them the same way.
 
 ---
 
@@ -177,7 +180,7 @@ Result folders (all pilots at n1 = 2000, n2 = 500 unless noted):
 | `null_pilot`, `table2_null_pilot.*` | null | 48 |
 | `sim1_pilot`, `table2_sim1_pilot.*` | sim1 | 48 |
 | `beta1_pilot`, `table2_beta1_pilot.*` | beta1 (cells 1-6 copied from `pilot`) | 48 |
-| `beta1_timing`, `table2_beta1_timing.*` | beta1 at **n1 = 6000, n2 = 2000** (timing) | 22 |
+| `beta1_timing` | beta1 at **n1 = 6000, n2 = 2000** (timing; cells 1-3 only) | 22 |
 | `explore_truex_*.csv` | true-x fits over exposure grids (E.6) | 200 per setting |
 | `calibration_v1.csv`, `calibration_v2.csv` | nu for `pilot_v1`, `pilot_v2` | |
 
